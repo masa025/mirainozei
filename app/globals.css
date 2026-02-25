@@ -1,0 +1,408 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;800;900&display=swap');
+
+:root {
+    --bg-color: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #94a3b8;
+
+    --accent-blue: #2563eb;
+    --accent-orange: #f97316;
+    --accent-red: #ef4444;
+    --accent-green: #10b981;
+
+    /* Increased opacity for glass surfaces to ensure readability over the video */
+    --surface-primary: rgba(255, 255, 255, 0.85);
+    --surface-secondary: rgba(248, 250, 252, 0.75);
+    --border-color: rgba(226, 232, 240, 0.6);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Background Sakura Canvas Styles */
+.sakura-background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -100;
+    overflow: hidden;
+    /* Base color underneath the canvas */
+    background-color: #f8e1e7;
+    /* The "Time Travel" Filter Animation for the entire background layer:
+     Starts highly sepia/grayscale (The Past)
+     Transitions slowly to clear, vibrant pinks (The Future/Present) */
+    animation: sakura-time-travel 30s infinite alternate;
+}
+
+.sakura-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+@keyframes sakura-time-travel {
+    0% {
+        /* 昭和エフェクト (The Past) */
+        filter: sepia(0.8) grayscale(0.5) contrast(1.1) brightness(0.9) hue-rotate(-20deg);
+    }
+
+    30% {
+        filter: sepia(0.4) grayscale(0.3) contrast(1.05) brightness(0.95);
+    }
+
+    100% {
+        /* 現代エフェクト (The Present/Future) */
+        filter: sepia(0) grayscale(0) contrast(1) brightness(1) hue-rotate(0deg);
+    }
+}
+
+/* Background overlay mesh to keep it dynamic but readable */
+.sakura-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 15% 50%, rgba(255, 105, 180, 0.1), transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(255, 182, 193, 0.1), transparent 50%);
+    background-size: 200% 200%;
+    animation: mesh-shift 20s ease-in-out infinite alternate;
+}
+
+@keyframes mesh-shift {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 100% 100%;
+    }
+
+    100% {
+        background-position: 0% 100%;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.outfit {
+    font-family: 'Outfit', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    background-color: rgba(255, 255, 255, 0.85);
+    /* Increased opacity for readability */
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    padding: 1rem 0;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+}
+
+.col-span-1 {
+    grid-column: span 1 / span 1;
+}
+
+.col-span-2 {
+    grid-column: span 2 / span 2;
+}
+
+.col-span-3 {
+    grid-column: span 3 / span 3;
+}
+
+.col-span-4 {
+    grid-column: span 4 / span 4;
+}
+
+.col-span-5 {
+    grid-column: span 5 / span 5;
+}
+
+.col-span-6 {
+    grid-column: span 6 / span 6;
+}
+
+.col-span-7 {
+    grid-column: span 7 / span 7;
+}
+
+.col-span-8 {
+    grid-column: span 8 / span 8;
+}
+
+.col-span-9 {
+    grid-column: span 9 / span 9;
+}
+
+.col-span-12 {
+    grid-column: span 12 / span 12;
+}
+
+/* Advanced Glassmorphism Widget */
+.widget {
+    background: var(--surface-primary);
+    border-radius: 24px;
+    padding: 1.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: var(--glass-shadow), inset 0 0 0 1px var(--border-color);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Base Widget Hover Physics */
+.widget::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.9), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.widget:hover::before {
+    opacity: 1;
+}
+
+.widget-content {
+    position: relative;
+    z-index: 10;
+}
+
+.widget-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+/* Glowing Tracing Border */
+.tracing-border-widget {
+    position: relative;
+    background: var(--surface-primary);
+    border-radius: 24px;
+}
+
+.tracing-border-widget::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #2563eb, transparent 40%, #f97316, transparent 60%, #ef4444);
+    background-size: 300% 300%;
+    animation: gradient-trace 6s linear infinite;
+    z-index: -1;
+    border-radius: 26px;
+}
+
+.tracing-border-widget::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--surface-primary);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    z-index: 0;
+}
+
+.tracing-content {
+    position: relative;
+    z-index: 10;
+    padding: 2rem;
+}
+
+@keyframes gradient-trace {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Pulse animation for Live Indicator */
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.8);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        transform: scale(0.8);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
+}
+
+.live-indicator {
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent-red);
+    border-radius: 50%;
+    animation: pulse-ring 2s infinite;
+}
+
+/* Custom Webkit Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.5);
+}
+
+.share-btn-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--text-primary);
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(15, 23, 42, 0.2);
+}
+
+.share-btn-light:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.3);
+    background: #000;
+}
+
+.share-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--text-primary);
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid var(--text-primary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.share-btn-outline:hover {
+    background: rgba(15, 23, 42, 0.05);
+}
+
+.header-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.header-link:hover {
+    opacity: 0.7;
+}
+
+.tabular-nums {
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 1024px) {
+
+    .col-span-3,
+    .col-span-4,
+    .col-span-5,
+    .col-span-6,
+    .col-span-8,
+    .col-span-9 {
+        grid-column: span 6 / span 6;
+    }
+}
+
+@media (max-width: 640px) {
+
+    .col-span-3,
+    .col-span-4,
+    .col-span-5,
+    .col-span-6,
+    .col-span-8,
+    .col-span-9 {
+        grid-column: span 12 / span 12;
+    }
+
+    .bento-grid {
+        gap: 1rem;
+    }
+}
