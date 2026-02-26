@@ -16,6 +16,7 @@ import TaxBalanceTicker from '../components/TaxBalanceTicker';
 import OpportunityCostWidget from '../components/OpportunityCostWidget';
 import EarthquakeMonitor from '../components/EarthquakeMonitor';
 import ExchangeRateWidget from '../components/ExchangeRateWidget';
+import RealWageWidget from '../components/RealWageWidget';
 import AnimatedBento, { AnimatedCard } from '../components/AnimatedBento';
 import dynamic from 'next/dynamic';
 
@@ -70,12 +71,19 @@ export default function Home() {
                             <DisappearingCitiesWidget />
                         </AnimatedCard>
 
-                        {/* ROW 4: Context & Deep Dive (Demographics Chart + Opportunity Cost + Silver Democracy) */}
+                        {/* ROW 4: Economic Concept (Real Wage vs Inflation & Opportunity Cost) */}
+                        <AnimatedCard className="col-span-6">
+                            <RealWageWidget />
+                        </AnimatedCard>
+                        <AnimatedCard className="col-span-6">
+                            <OpportunityCostWidget />
+                        </AnimatedCard>
+
+                        {/* ROW 5: Demographic Deep Dive & Voting Power */}
                         <AnimatedCard className="col-span-8">
                             <DemographicChart />
                         </AnimatedCard>
-                        <AnimatedCard className="col-span-4" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                            <OpportunityCostWidget />
+                        <AnimatedCard className="col-span-4">
                             <SilverDemocracyWidget />
                         </AnimatedCard>
 
