@@ -17,6 +17,12 @@ import OpportunityCostWidget from '../components/OpportunityCostWidget';
 import EarthquakeMonitor from '../components/EarthquakeMonitor';
 import ExchangeRateWidget from '../components/ExchangeRateWidget';
 import RealWageWidget from '../components/RealWageWidget';
+import CorporateMetabolismWidget from '../components/CorporateMetabolismWidget';
+import DecisionMakerAgeWidget from '../components/DecisionMakerAgeWidget';
+import AgeIncomeComparisonWidget from '../components/AgeIncomeComparisonWidget';
+import LiveVisitorsWidget from '../components/LiveVisitorsWidget';
+import EducationROIWidget from '../components/EducationROIWidget';
+import GenerationalInequalityWidget from '../components/GenerationalInequalityWidget';
 import AnimatedBento, { AnimatedCard } from '../components/AnimatedBento';
 import dynamic from 'next/dynamic';
 
@@ -41,26 +47,68 @@ export default function Home() {
                     style={{ paddingTop: '2rem' }}
                 >
                     <AnimatedBento>
-                        {/* ROW 1: The Massive Debt Clock takes up 8 columns, Utilities take 4 */}
+                        {/* Live Status Banner */}
+                        <AnimatedCard className="col-span-12" style={{ marginBottom: '-0.5rem' }}>
+                            <LiveVisitorsWidget />
+                        </AnimatedCard>
+
+                        {/* ROW 1 (Hook Layer): The Massive Debt Clock takes up 8 columns, Utilities take 4 */}
                         <AnimatedCard className="col-span-8">
                             <DebtClock />
                         </AnimatedCard>
-
                         {/* Small Utilities stacked on the right */}
                         <AnimatedCard className="col-span-4" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                             <div style={{ flex: 1 }}><WeatherWidget /></div>
                             <div style={{ flex: 2 }}><ExchangeRateWidget /></div>
                         </AnimatedCard>
 
-                        {/* ROW 2: Personal Shock & Massive Racing Bar */}
+                        {/* ROW 2 (Dynamic Variable Rewards): Earthquakes & News */}
+                        <AnimatedCard className="col-span-6">
+                            <EarthquakeMonitor />
+                        </AnimatedCard>
+                        <AnimatedCard className="col-span-6">
+                            <NewsWidget />
+                        </AnimatedCard>
+
+                        {/* ROW 3 (Personal Pain): Personal Debt & Income Stagnation */}
                         <AnimatedCard className="col-span-4">
                             <PersonalDebtCounter />
                         </AnimatedCard>
+                        <AnimatedCard className="col-span-4">
+                            <AgeIncomeComparisonWidget />
+                        </AnimatedCard>
+                        <AnimatedCard className="col-span-4">
+                            <RealWageWidget />
+                        </AnimatedCard>
+
+                        {/* ROW 4 (Financial Reality): Tax Balance & Opportunity Cost */}
                         <AnimatedCard className="col-span-8">
                             <TaxBalanceTicker />
                         </AnimatedCard>
+                        <AnimatedCard className="col-span-4">
+                            <OpportunityCostWidget />
+                        </AnimatedCard>
 
-                        {/* ROW 3: Demographics (Population, Support Ratio, Disappearing Cities) */}
+                        {/* ROW 5 (Root Cause 1: Ineffective Spending & Generational Injustice) */}
+                        <AnimatedCard className="col-span-6">
+                            <EducationROIWidget />
+                        </AnimatedCard>
+                        <AnimatedCard className="col-span-6">
+                            <GenerationalInequalityWidget />
+                        </AnimatedCard>
+
+                        {/* ROW 6 (Root Cause 2: Power Dynamics & Metabolism) */}
+                        <AnimatedCard className="col-span-4">
+                            <CorporateMetabolismWidget />
+                        </AnimatedCard>
+                        <AnimatedCard className="col-span-4">
+                            <DecisionMakerAgeWidget />
+                        </AnimatedCard>
+                        <AnimatedCard className="col-span-4">
+                            <SilverDemocracyWidget />
+                        </AnimatedCard>
+
+                        {/* ROW 6 (Macro Demographics / The Slow Collapse) */}
                         <AnimatedCard className="col-span-4">
                             <PopulationTicker />
                         </AnimatedCard>
@@ -71,36 +119,17 @@ export default function Home() {
                             <DisappearingCitiesWidget />
                         </AnimatedCard>
 
-                        {/* ROW 4: Economic Concept (Real Wage vs Inflation & Opportunity Cost) */}
-                        <AnimatedCard className="col-span-6">
-                            <RealWageWidget />
-                        </AnimatedCard>
-                        <AnimatedCard className="col-span-6">
-                            <OpportunityCostWidget />
-                        </AnimatedCard>
-
-                        {/* ROW 5: Demographic Deep Dive & Voting Power */}
-                        <AnimatedCard className="col-span-8">
+                        {/* ROW 7 (Deep Demographics Chart) */}
+                        <AnimatedCard className="col-span-12">
                             <DemographicChart />
                         </AnimatedCard>
-                        <AnimatedCard className="col-span-4">
-                            <SilverDemocracyWidget />
-                        </AnimatedCard>
 
-                        {/* ROW 5: Infrastructure (Map + Realtime Status) */}
+                        {/* ROW 8 (Infrastructure Collapse) */}
                         <AnimatedCard className="col-span-8" style={{ marginBottom: '1rem' }}>
                             <InfrastructureMap />
                         </AnimatedCard>
                         <AnimatedCard className="col-span-4">
                             <InfrastructureStatusWidget />
-                        </AnimatedCard>
-
-                        {/* ROW 6: Real-time Events (News + Earthquakes) */}
-                        <AnimatedCard className="col-span-6">
-                            <NewsWidget />
-                        </AnimatedCard>
-                        <AnimatedCard className="col-span-6">
-                            <EarthquakeMonitor />
                         </AnimatedCard>
 
                         {/* Bottom Row: Call to Action spans full width */}

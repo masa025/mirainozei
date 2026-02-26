@@ -33,8 +33,9 @@ export default function IntroScreen({ onComplete }: IntroScreenProps) {
                         left: 0,
                         width: '100vw',
                         height: '100vh',
-                        zIndex: 9999, // Extremely high to cover everything including headers
-                        backgroundColor: '#000', // Black background to contrast with the glassmorphism
+                        zIndex: 9999,
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)', // Frost Glass Background
+                        backdropFilter: 'blur(30px)',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -50,7 +51,7 @@ export default function IntroScreen({ onComplete }: IntroScreenProps) {
                         transition={{ duration: 1.2, delay: 0.5, ease: 'easeOut' }}
                         style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
                     >
-                        <h1 className="outfit" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 900, letterSpacing: '-0.04em', background: 'linear-gradient(90deg, #e2e8f0, #3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', textShadow: '0 4px 30px rgba(59, 130, 246, 0.4)' }}>
+                        <h1 className="outfit" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 900, letterSpacing: '-0.04em', background: 'linear-gradient(90deg, #0f172a, #2563eb)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', textShadow: '0 4px 30px rgba(59, 130, 246, 0.2)' }}>
                             日本の「今」を直視する
                         </h1>
                     </motion.div>
@@ -59,7 +60,7 @@ export default function IntroScreen({ onComplete }: IntroScreenProps) {
                         initial={{ opacity: 0, filter: 'blur(5px)' }}
                         animate={{ opacity: 1, filter: 'blur(0px)' }}
                         transition={{ duration: 1.5, delay: 1.5, ease: 'easeOut' }}
-                        style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: 'clamp(1rem, 2vw, 1.4rem)', maxWidth: '800px', lineHeight: 1.8, fontWeight: 300 }}
+                        style={{ color: 'var(--text-secondary)', fontSize: 'clamp(1rem, 2vw, 1.4rem)', maxWidth: '800px', lineHeight: 1.8, fontWeight: 500 }}
                     >
                         為替、気象、地震といった不変の「現実」と共に、<br />
                         進行し続ける日本の財政・社会課題の生データをリアルタイムで配信します。

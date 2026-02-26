@@ -30,6 +30,16 @@ export default function SeasonalParticles() {
         else if (month >= 8 && month <= 10) season = 'autumn';
         else season = 'winter';
 
+        // Mouse tracking for interactive 'wind' effect
+        let mouseX = width / 2;
+        let mouseY = height / 2;
+
+        const handleMouseMove = (e: MouseEvent) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        };
+        window.addEventListener('mousemove', handleMouseMove);
+
         const particles: Particle[] = [];
         const numParticles = season === 'winter' ? 150 : (season === 'spring' ? 80 : 50);
 
@@ -37,8 +47,8 @@ export default function SeasonalParticles() {
             x: number;
             y: number;
             size: number;
-            speedX: number;
-            speedY: number;
+            baseSpeedX: number;
+            baseSpeedY: number;
             rotation: number;
             rotationSpeed: number;
 
@@ -49,31 +59,40 @@ export default function SeasonalParticles() {
 
                 if (season === 'winter') { // Snow
                     this.size = Math.random() * 3 + 1;
-                    this.speedX = (Math.random() - 0.5) * 1;
-                    this.speedY = Math.random() * 1 + 0.5;
+                    this.baseSpeedX = (Math.random() - 0.5) * 1;
+                    this.baseSpeedY = Math.random() * 1 + 0.5;
                     this.rotationSpeed = 0;
                 } else if (season === 'spring') { // Sakura
                     this.size = Math.random() * 8 + 4;
-                    this.speedX = Math.random() * 2 - 1;
-                    this.speedY = Math.random() * 1.5 + 0.5;
+                    this.baseSpeedX = Math.random() * 2 - 1;
+                    this.baseSpeedY = Math.random() * 1.5 + 0.5;
                     this.rotationSpeed = Math.random() * 2 - 1;
                 } else if (season === 'summer') { // Fireflies / Light Dust
                     this.size = Math.random() * 2 + 1;
-                    this.speedX = (Math.random() - 0.5) * 0.5;
-                    this.speedY = (Math.random() - 0.5) * 0.5 - 0.2; // slight float up
+                    this.baseSpeedX = (Math.random() - 0.5) * 0.5;
+                    this.baseSpeedY = (Math.random() - 0.5) * 0.5 - 0.2; // slight float up
                     this.rotationSpeed = 0;
                 } else { // Autumn leaves
                     this.size = Math.random() * 10 + 5;
-                    this.speedX = Math.random() * 3 - 1.5;
-                    this.speedY = Math.random() * 2 + 1;
+                    this.baseSpeedX = Math.random() * 3 - 1.5;
+                    this.baseSpeedY = Math.random() * 2 + 1;
                     this.rotationSpeed = Math.random() * 3 - 1.5;
                 }
             }
 
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.rotation += this.rotationSpeed;
+                // Calculate "wind" based on mouse position from center
+                // The further from center, the stronger the wind
+                const dx = mouseX - width / 2;
+                const dy = mouseY - height / 2;
+
+                // Adjust sensitivity. Larger particles are affected slightly more (parallax)
+                const windX = dx * 0.003 * Math.max(1, this.size * 0.3);
+                const windY = dy * 0.001 * Math.max(1, this.size * 0.3);
+
+                this.x += this.baseSpeedX + windX;
+                this.y += this.baseSpeedY + windY;
+                this.rotation += this.rotationSpeed + (windX * 0.5);
 
                 // Wrap around
                 if (this.y > height + 20) {
@@ -158,6 +177,7 @@ export default function SeasonalParticles() {
         return () => {
             cancelAnimationFrame(animationFrameId);
             window.removeEventListener('resize', handleResize);
+            window.removeEventListener('mousemove', handleMouseMove);
         };
     }, []);
 

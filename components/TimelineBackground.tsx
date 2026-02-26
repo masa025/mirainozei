@@ -113,8 +113,8 @@ export default function TimelineBackground() {
                 className={currentEra.cssClass}
             />
 
-            {/* Dark Overlay to keep UI readable */}
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 2 }} />
+            {/* Frosty Overlay to ensure UI readability while keeping background visible */}
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', zIndex: 2 }} />
 
             {/* Seasonal Particles Layer (Sakura, Snow, etc) */}
             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 3, pointerEvents: 'none' }}>
@@ -122,10 +122,10 @@ export default function TimelineBackground() {
             </div>
 
             {/* Mesh Overlay to keep UI highly readable */}
-            <div className="video-overlay" style={{ opacity: 0.8, zIndex: 4 }} />
+            <div className="video-overlay" style={{ opacity: 0.4, mixBlendMode: 'overlay', zIndex: 4 }} />
 
             {/* Subtle Era Indicator in bottom left */}
-            <div style={{ position: 'absolute', bottom: '20px', left: '20px', zIndex: 10, color: 'rgba(255,255,255,0.8)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', letterSpacing: '0.1em', background: 'rgba(0,0,0,0.5)', padding: '6px 12px', borderRadius: '4px', backdropFilter: 'blur(8px)', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
+            <div style={{ position: 'absolute', bottom: '20px', left: '20px', zIndex: 10, color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', letterSpacing: '0.1em', background: 'rgba(255,255,255,0.6)', padding: '6px 12px', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '4px', backdropFilter: 'blur(8px)', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
                 SYS_YEAR_SIMULATION: {currentEra.name}
             </div>
         </div>

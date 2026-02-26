@@ -2,8 +2,11 @@
 
 :root {
     --bg-color: #f8fafc;
+    /* Primary text inverted to very dark slate (near black) */
     --text-primary: #0f172a;
+    /* Secondary text inverted to slate gray */
     --text-secondary: #475569;
+    /* Tertiary text inverted to light slate */
     --text-tertiary: #94a3b8;
 
     --accent-blue: #2563eb;
@@ -11,9 +14,9 @@
     --accent-red: #ef4444;
     --accent-green: #10b981;
 
-    /* Increased opacity for glass surfaces to ensure readability over the video */
-    --surface-primary: rgba(255, 255, 255, 0.85);
-    --surface-secondary: rgba(248, 250, 252, 0.75);
+    /* Frosted glass surfaces for widgets - predominantly white */
+    --surface-primary: rgba(255, 255, 255, 0.7);
+    --surface-secondary: rgba(248, 250, 252, 0.6);
     --border-color: rgba(226, 232, 240, 0.6);
     --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
 }

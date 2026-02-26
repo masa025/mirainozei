@@ -95,16 +95,16 @@ export default function RealWageWidget() {
                                             <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
-                                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" vertical={false} />
                                     <XAxis dataKey="year" stroke="var(--text-tertiary)" fontSize={11} tickLine={false} axisLine={false} />
                                     <YAxis domain={[95, 110]} stroke="var(--text-tertiary)" fontSize={11} tickLine={false} axisLine={false} tickFormatter={(val) => `${val}`} />
                                     <Tooltip
-                                        contentStyle={{ backgroundColor: 'var(--widget-bg)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: 'var(--text-primary)', boxShadow: '0 10px 25px rgba(0,0,0,0.5)' }}
+                                        contentStyle={{ backgroundColor: 'var(--widget-bg)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '8px', color: 'var(--text-primary)', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }}
                                         itemStyle={{ fontSize: '0.85rem' }}
                                         labelStyle={{ color: 'var(--text-secondary)', marginBottom: '4px' }}
                                         formatter={(value: any, name: any) => [Number(value).toFixed(1), name === 'cpi' ? '消費者物価指数' : '名目賃金']}
                                     />
-                                    <ReferenceLine y={100} stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" />
+                                    <ReferenceLine y={100} stroke="rgba(0,0,0,0.2)" strokeDasharray="3 3" />
                                     <Area type="monotone" dataKey="cpi" name="cpi" stroke="#ef4444" strokeWidth={3} fillOpacity={1} fill="url(#colorCpi)" animationDuration={1500} />
                                     <Area type="monotone" dataKey="wage" name="wage" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorWage)" animationDuration={1500} />
                                 </AreaChart>
@@ -132,12 +132,12 @@ export default function RealWageWidget() {
                         >
                             <ResponsiveContainer width="100%" height="100%">
                                 <BarChart data={globalData} layout="vertical" margin={{ top: 5, right: 30, left: 10, bottom: 5 }}>
-                                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={true} vertical={false} />
+                                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" horizontal={true} vertical={false} />
                                     <XAxis type="number" stroke="var(--text-tertiary)" fontSize={11} tickLine={false} axisLine={false} tickFormatter={(val) => `+${val}%`} />
                                     <YAxis dataKey="country" type="category" stroke="var(--text-secondary)" fontSize={11} tickLine={false} axisLine={false} width={60} fontWeight={600} />
                                     <Tooltip
-                                        cursor={{ fill: 'rgba(255,255,255,0.05)' }}
-                                        contentStyle={{ backgroundColor: 'var(--widget-bg)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: 'var(--text-primary)' }}
+                                        cursor={{ fill: 'rgba(0,0,0,0.05)' }}
+                                        contentStyle={{ backgroundColor: 'var(--widget-bg)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '8px', color: 'var(--text-primary)' }}
                                         formatter={(value: any) => [`+${value}%`, '実質賃金上昇率']}
                                     />
                                     <Bar dataKey="growth" radius={[0, 4, 4, 0]} animationDuration={1000}>
