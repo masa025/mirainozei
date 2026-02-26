@@ -79,23 +79,22 @@ export default function LiveVisitorsWidget() {
         // 1. Oscillate visitor count every 3-7 seconds
         const countInterval = setInterval(() => {
             setVisitorCount(prev => {
-                // Fluctuate between -3 and +5
                 const change = Math.floor(Math.random() * 9) - 3;
-                return Math.max(10, prev + change); // Keep minimum above 10
+                return Math.max(10, prev + change);
             });
         }, 5000);
 
-        // 2. Push simulated region logs every 4-10 seconds
+        // 2. Push simulated region logs every 3-5 seconds
         const logInterval = setInterval(() => {
             setRecentLogs(prevLogs => {
                 const randomRegion = REGIONS[Math.floor(Math.random() * REGIONS.length)];
                 const newLog: VisitorLog = { id: Date.now(), region: randomRegion, isSelf: false };
 
-                // Keep only the last 3 logs
-                const updatedLogs = [newLog, ...prevLogs].slice(0, 3);
+                // Keep a longer tail for the marquee (e.g., last 15 logs)
+                const updatedLogs = [newLog, ...prevLogs].slice(0, 15);
                 return updatedLogs;
             });
-        }, Math.random() * 6000 + 4000);
+        }, Math.random() * 2000 + 3000);
 
         return () => {
             clearInterval(countInterval);
@@ -104,10 +103,10 @@ export default function LiveVisitorsWidget() {
     }, []);
 
     return (
-        <div className="widget" style={{ padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--widget-bg)', borderBottom: '1px solid rgba(0,0,0,0.05)', borderRadius: '12px' }}>
+        <div className="widget" style={{ padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--widget-bg)', borderBottom: '1px solid rgba(0,0,0,0.05)', borderRadius: '12px', overflow: 'hidden' }}>
 
             {/* Left side: Live Counter */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: '180px', zIndex: 10, background: 'var(--widget-bg)', paddingRight: '1rem' }}>
                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <motion.div
                         animate={{ opacity: [1, 0.4, 1] }}
@@ -135,37 +134,40 @@ export default function LiveVisitorsWidget() {
                 </div>
             </div>
 
-            {/* Right side: Rolling Region Log */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', overflow: 'hidden', height: '1.5rem', position: 'relative', width: '200px', justifyContent: 'flex-end' }}>
-                <AnimatePresence mode="popLayout">
-                    {recentLogs.map((log) => (
-                        <motion.div
-                            key={log.id}
-                            initial={{ opacity: 0, y: 15, scale: 0.9 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: -15, scale: 0.9 }}
-                            transition={{ duration: 0.4 }}
-                            style={{
-                                position: 'absolute',
-                                right: 0,
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.25rem',
-                                fontSize: '0.75rem',
-                                fontWeight: log.isSelf ? 700 : 500,
-                                color: log.isSelf ? 'var(--accent-blue)' : 'var(--text-secondary)',
-                                background: log.isSelf ? 'rgba(59, 130, 246, 0.1)' : 'rgba(0,0,0,0.03)',
-                                padding: '2px 8px',
-                                borderRadius: '12px',
-                                border: log.isSelf ? '1px solid rgba(59, 130, 246, 0.2)' : '1px solid transparent',
-                                whiteSpace: 'nowrap'
-                            }}
-                        >
-                            <span>📍</span>
-                            {log.isSelf ? `あなた (${log.region}) が接続` : `${log.region} からアクセス`}
-                        </motion.div>
-                    ))}
-                </AnimatePresence>
+            {/* Right side: Continuous Sliding Marquee */}
+            <div style={{ flex: 1, overflow: 'hidden', display: 'flex', alignItems: 'center', position: 'relative', height: '1.5rem', maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+                {recentLogs.length > 0 && (
+                    <motion.div
+                        style={{ display: 'flex', gap: '1rem', whiteSpace: 'nowrap' }}
+                        animate={{ x: ['100%', '-100%'] }}
+                        transition={{
+                            duration: 20,
+                            repeat: Infinity,
+                            ease: 'linear',
+                        }}
+                    >
+                        {recentLogs.map((log) => (
+                            <div
+                                key={log.id}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.25rem',
+                                    fontSize: '0.75rem',
+                                    fontWeight: log.isSelf ? 700 : 500,
+                                    color: log.isSelf ? 'var(--accent-blue)' : 'var(--text-secondary)',
+                                    background: log.isSelf ? 'rgba(59, 130, 246, 0.1)' : 'rgba(0,0,0,0.03)',
+                                    padding: '2px 8px',
+                                    borderRadius: '12px',
+                                    border: log.isSelf ? '1px solid rgba(59, 130, 246, 0.2)' : '1px solid transparent',
+                                }}
+                            >
+                                <span>📍</span>
+                                {log.isSelf ? `あなた (${log.region}) が接続` : `${log.region} からアクセス`}
+                            </div>
+                        ))}
+                    </motion.div>
+                )}
             </div>
 
         </div>
