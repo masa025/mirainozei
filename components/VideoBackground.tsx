@@ -41,11 +41,11 @@ const HISTORICAL_VIDEOS = [
         name: '近未来予測：限界集落とインフラ崩壊（空き家問題）'
     },
     {
-        id: 'dxHRhnN7yR0', // Factory automation / robotics (Creative Commons safe)
+        id: 'iLoWrpgXRXk', // Factory automation / fast robotics
         name: '近未来予測：労働人口激減と完全自動化社会'
     },
     {
-        id: 'p_KNIcCmiY4', // Extreme weather / storm clouds (Creative Commons safe)
+        id: 'oagszCmJLpU', // Extreme weather / fast storm timelapse
         name: '近未来予測：気候変動による環境インフラの危機'
     }
 ];
