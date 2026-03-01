@@ -28,11 +28,11 @@ const HISTORICAL_VIDEOS = [
         name: '1990年代：バブル崩壊と失われた10年の始まり'
     },
     {
-        id: '9l1mZ2Mv_s8', // 2010s
+        id: 'SoA5td8UU30', // 2010s 4K Walk
         name: '2010年代：震災復興とスマホ・SNSの普及'
     },
     {
-        id: '2Y2uK5n0Gk8', // 2020s Shibuya transition
+        id: 'K5ksHjgH4D8', // 2020s Empty Streets (Pandemic)
         name: '2020年代：パンデミックと新しい日常'
     },
     // --- FUTURE PREDICTIONS ---
@@ -41,7 +41,7 @@ const HISTORICAL_VIDEOS = [
         name: '近未来予測：限界集落とインフラ崩壊（空き家問題）'
     },
     {
-        id: 'u2BfVmmaWvk', // Factory automation / robotics (Creative Commons safe)
+        id: 'rZApWh2Igk4', // Factory automation / horizontal landscape robotics
         name: '近未来予測：労働人口激減と完全自動化社会'
     },
     {
