@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import TimelineBackground from '../components/TimelineBackground';
+import VideoBackground from '../components/VideoBackground';
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://mirainozei.netlify.app'), // Replace with actual production domain
@@ -62,7 +62,7 @@ export default function RootLayout({
     return (
         <html lang="ja">
             <body>
-                <TimelineBackground />
+                <VideoBackground />
                 <header className="header">
                     <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div style={{ display: 'flex', alignItems: 'center', fontSize: '1.5rem', fontWeight: 900, letterSpacing: '-0.05em', color: 'var(--text-primary)', fontFamily: 'Outfit, sans-serif' }}>

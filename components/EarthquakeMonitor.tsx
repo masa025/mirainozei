@@ -55,15 +55,28 @@ export default function EarthquakeMonitor() {
             ) : (
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     {quakes.map((q) => {
-                        const timeObj = new Date(q.time);
-                        const formattedTime = `${timeObj.getMonth() + 1}/${timeObj.getDate()} ${timeObj.getHours()}:${timeObj.getMinutes().toString().padStart(2, '0')}`;
+                        // Parse time string like "2026/03/01 09:38:23.054" using regex to avoid Safari Date() bugs
+                        let formattedTime = '';
+                        try {
+                            const match = q.time.match(/(\d{4})[/-](\d{2})[/-](\d{2})\s+(\d{2}):(\d{2})/);
+                            if (match) {
+                                const month = parseInt(match[2], 10);
+                                const day = parseInt(match[3], 10);
+                                formattedTime = `${month}/${day} ${match[4]}:${match[5]}発生`;
+                            } else {
+                                formattedTime = '発生日時不明';
+                            }
+                        } catch (e) {
+                            formattedTime = '発生日時不明';
+                        }
+
                         const intensity = scaleMapping[q.earthquake.maxScale] || '不明';
                         const location = q.earthquake.hypocenter.name || '不明';
 
                         return (
                             <li key={q.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'var(--surface-secondary)', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
                                 <div>
-                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{formattedTime}発生</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{formattedTime}</div>
                                     <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-primary)' }}>{location}</div>
                                 </div>
                                 <div style={{ textAlign: 'right' }}>

@@ -20,9 +20,10 @@ import RealWageWidget from '../components/RealWageWidget';
 import CorporateMetabolismWidget from '../components/CorporateMetabolismWidget';
 import DecisionMakerAgeWidget from '../components/DecisionMakerAgeWidget';
 import AgeIncomeComparisonWidget from '../components/AgeIncomeComparisonWidget';
-import LiveVisitorsWidget from '../components/LiveVisitorsWidget';
+import RegionalPopulationWidget from '../components/RegionalPopulationWidget';
 import EducationROIWidget from '../components/EducationROIWidget';
 import GenerationalInequalityWidget from '../components/GenerationalInequalityWidget';
+import BullyingPreventionWidget from '../components/BullyingPreventionWidget';
 import AnimatedBento, { AnimatedCard } from '../components/AnimatedBento';
 import dynamic from 'next/dynamic';
 
@@ -49,7 +50,7 @@ export default function Home() {
                     <AnimatedBento>
                         {/* Live Status Banner */}
                         <AnimatedCard className="col-span-12" style={{ marginBottom: '-0.5rem' }}>
-                            <LiveVisitorsWidget />
+                            <RegionalPopulationWidget />
                         </AnimatedCard>
 
                         {/* ROW 1 (Hook Layer): The Massive Debt Clock takes up 8 columns, Utilities take 4 */}
@@ -90,11 +91,14 @@ export default function Home() {
                         </AnimatedCard>
 
                         {/* ROW 5 (Root Cause 1: Ineffective Spending & Generational Injustice) */}
-                        <AnimatedCard className="col-span-6">
+                        <AnimatedCard className="col-span-4">
                             <EducationROIWidget />
                         </AnimatedCard>
-                        <AnimatedCard className="col-span-6">
+                        <AnimatedCard className="col-span-4">
                             <GenerationalInequalityWidget />
+                        </AnimatedCard>
+                        <AnimatedCard className="col-span-4">
+                            <BullyingPreventionWidget />
                         </AnimatedCard>
 
                         {/* ROW 6 (Root Cause 2: Power Dynamics & Metabolism) */}

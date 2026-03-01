@@ -112,13 +112,15 @@ export default function EducationROIWidget() {
                     <button
                         onClick={() => setView('global')}
                         style={{
-                            padding: '0.25rem 0.75rem',
+                            padding: '0.2rem 0.6rem',
                             fontSize: '0.75rem',
                             borderRadius: '15px',
-                            background: view === 'global' ? 'var(--text-primary)' : 'transparent',
-                            color: view === 'global' ? 'var(--widget-bg)' : 'var(--text-secondary)',
+                            background: view === 'global' ? 'rgba(56, 189, 248, 0.15)' : 'transparent',
+                            color: view === 'global' ? 'var(--accent-blue)' : 'var(--text-secondary)',
                             fontWeight: view === 'global' ? 700 : 500,
-                            border: 'none', cursor: 'pointer', transition: 'all 0.2s'
+                            border: view === 'global' ? '1px solid rgba(56, 189, 248, 0.3)' : '1px solid transparent',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease'
                         }}
                     >
                         国際
@@ -126,13 +128,15 @@ export default function EducationROIWidget() {
                     <button
                         onClick={() => setView('domestic')}
                         style={{
-                            padding: '0.25rem 0.75rem',
+                            padding: '0.2rem 0.6rem',
                             fontSize: '0.75rem',
                             borderRadius: '15px',
-                            background: view === 'domestic' ? 'var(--text-primary)' : 'transparent',
-                            color: view === 'domestic' ? 'var(--widget-bg)' : 'var(--text-secondary)',
+                            background: view === 'domestic' ? 'rgba(56, 189, 248, 0.15)' : 'transparent',
+                            color: view === 'domestic' ? 'var(--accent-blue)' : 'var(--text-secondary)',
                             fontWeight: view === 'domestic' ? 700 : 500,
-                            border: 'none', cursor: 'pointer', transition: 'all 0.2s'
+                            border: view === 'domestic' ? '1px solid rgba(56, 189, 248, 0.3)' : '1px solid transparent',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease'
                         }}
                     >
                         国内

@@ -43,7 +43,7 @@ export function AnimatedCard({ children, className = "", style }: { children: Re
             className={className}
             style={style}
             variants={itemVariants}
-            whileHover={{ scale: 1.02, y: -4, transition: { type: "spring", stiffness: 400, damping: 25 } }}
+            whileHover={{ scale: 1.01, boxShadow: '0 8px 16px rgba(0,0,0,0.06), 0 0 8px rgba(59,130,246,0.05)', transition: { type: "tween", duration: 0.2 } }}
             onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 const x = e.clientX - rect.left;
