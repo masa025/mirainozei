@@ -95,13 +95,7 @@ export default function WeatherWidget() {
         return () => clearInterval(apiInterval);
     }, []);
 
-    // Cycle through cities every 5 seconds
-    useEffect(() => {
-        const cycleInterval = setInterval(() => {
-            setCurrentCityIndex((prev) => (prev + 1) % CITIES.length);
-        }, 5000);
-        return () => clearInterval(cycleInterval);
-    }, []);
+    // Auto-cycling removed as per user request for manual selection.
 
     const currentCity = CITIES[currentCityIndex];
     const cityWeather = weatherData[currentCity.id];
@@ -128,21 +122,28 @@ export default function WeatherWidget() {
                     <span style={{ color: 'var(--accent-blue)' }}>🌤</span> 日本の現在の天気
                 </span>
 
-                {/* Pagination Dots */}
-                <div style={{ display: 'flex', gap: '4px' }}>
-                    {CITIES.map((_, idx) => (
-                        <div
-                            key={`dot-${idx}`}
-                            style={{
-                                width: '6px',
-                                height: '6px',
-                                borderRadius: '50%',
-                                backgroundColor: idx === currentCityIndex ? 'var(--text-primary)' : 'var(--text-tertiary)',
-                                transition: 'background-color 0.3s ease'
-                            }}
-                        />
+                {/* Location Selector */}
+                <select
+                    value={currentCityIndex}
+                    onChange={(e) => setCurrentCityIndex(Number(e.target.value))}
+                    style={{
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        color: 'var(--text-primary)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: '6px',
+                        padding: '4px 8px',
+                        fontSize: '0.75rem',
+                        outline: 'none',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                    }}
+                >
+                    {CITIES.map((city, idx) => (
+                        <option key={city.id} value={idx} style={{ color: '#000' }}>
+                            {city.name}
+                        </option>
                     ))}
-                </div>
+                </select>
             </h2>
 
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>

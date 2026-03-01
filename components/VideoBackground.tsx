@@ -37,15 +37,15 @@ const HISTORICAL_VIDEOS = [
     },
     // --- FUTURE PREDICTIONS ---
     {
-        id: 'UeZtlFeEcNg', // Abandoned city / ruins
+        id: 'SPTKwBxxS2g', // Abandoned city / ruins (Creative Commons safe)
         name: '近未来予測：限界集落とインフラ崩壊（空き家問題）'
     },
     {
-        id: 'rZApWh2Igk4', // Factory automation / robotics
+        id: 'dxHRhnN7yR0', // Factory automation / robotics (Creative Commons safe)
         name: '近未来予測：労働人口激減と完全自動化社会'
     },
     {
-        id: 'LYubHpEMTPM', // Extreme weather / storm clouds
+        id: 'p_KNIcCmiY4', // Extreme weather / storm clouds (Creative Commons safe)
         name: '近未来予測：気候変動による環境インフラの危機'
     }
 ];

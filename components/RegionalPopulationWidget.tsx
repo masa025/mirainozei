@@ -203,7 +203,7 @@ export default function RegionalPopulationWidget() {
                     </div>
                 ) : (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.9rem', color: '#60a5fa', fontWeight: 800, background: 'rgba(0, 0, 0, 0.4)', padding: '6px 14px', borderRadius: '20px', border: '1px solid rgba(96, 165, 250, 0.3)' }}>
-                        <TrendingUp size={16} strokeWidth={2.5} /> 人口維持・増加予測 ({regionData.rank}位)
+                        <TrendingUp size={16} strokeWidth={2.5} /> 増加予測 {48 - regionData.rank}位
                     </div>
                 )}
             </div>
