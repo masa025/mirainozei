@@ -186,9 +186,9 @@ export default function RegionalPopulationWidget() {
         }}>
 
             {/* 1. Header Row */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', zIndex: 10 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.75rem', zIndex: 10 }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.25rem', color: '#f8fafc', fontWeight: 800, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', fontSize: '1.25rem', color: '#f8fafc', fontWeight: 800, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
                         <MapPin size={22} strokeWidth={2.5} style={{ color: isDeclining ? '#fca5a5' : '#93c5fd' }} />
                         {regionData.name} のリアルタイム人口推計
                     </div>
@@ -208,11 +208,11 @@ export default function RegionalPopulationWidget() {
                 )}
             </div>
 
-            {/* 2. Main Visual Data Row */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr 1.2fr', alignItems: 'center', gap: '2rem', zIndex: 10 }}>
+            {/* 2. Main Visual Data Row - Made Responsive with Tailwind */}
+            <div className="flex flex-col lg:grid lg:grid-cols-[1.2fr_2fr_1.2fr] items-center gap-6 lg:gap-8 z-10 w-full mt-2">
 
                 {/* Current */}
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div className="flex flex-col lg:items-start items-center w-full">
                     <div style={{ fontSize: '0.85rem', color: '#cbd5e1', fontWeight: 700, marginBottom: '0.25rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>CURRENT 推計人口</div>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
                         <motion.span
@@ -220,7 +220,7 @@ export default function RegionalPopulationWidget() {
                             initial={isDeclining ? { color: '#ff8a8a', scale: 1.02 } : { color: '#ffffff', scale: 1 }}
                             animate={{ color: '#ffffff', scale: 1 }}
                             transition={{ duration: 0.8 }}
-                            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, fontVariantNumeric: 'tabular-nums', lineHeight: 1, letterSpacing: '-0.02em', color: '#ffffff', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
+                            style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, fontVariantNumeric: 'tabular-nums', lineHeight: 1, letterSpacing: '-0.02em', color: '#ffffff', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
                         >
                             {simulatedCurrent.toLocaleString()}
                         </motion.span>
@@ -229,7 +229,7 @@ export default function RegionalPopulationWidget() {
                 </div>
 
                 {/* Decline Visual Progress Bar */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
+                <div className="flex flex-col gap-3 w-full">
                     {/* The Bar Container */}
                     <div style={{ height: '14px', background: 'rgba(0,0,0,0.5)', borderRadius: '8px', position: 'relative', overflow: 'hidden', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.8)' }}>
                         {/* 2050 Base Target Bar */}
@@ -256,10 +256,10 @@ export default function RegionalPopulationWidget() {
                 </div>
 
                 {/* 2050 Projection */}
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', textAlign: 'right' }}>
+                <div className="flex flex-col lg:items-end items-center w-full lg:text-right text-center mt-2 lg:mt-0">
                     <div style={{ fontSize: '0.85rem', color: '#cbd5e1', fontWeight: 700, marginBottom: '0.25rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>2050 ESTIMATE (IPSS)</div>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
-                        <span style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.7rem)', fontWeight: 800, color: '#94a3b8', fontVariantNumeric: 'tabular-nums', lineHeight: 1, letterSpacing: '-0.02em', opacity: 0.9, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                        <span style={{ fontSize: 'clamp(1.8rem, 4vw, 2.7rem)', fontWeight: 800, color: '#94a3b8', fontVariantNumeric: 'tabular-nums', lineHeight: 1, letterSpacing: '-0.02em', opacity: 0.9, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
                             {regionData.pro2050.toLocaleString()}
                         </span>
                         <span style={{ fontSize: '1.1rem', color: '#64748b', fontWeight: 800 }}>人</span>

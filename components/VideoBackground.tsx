@@ -28,12 +28,25 @@ const HISTORICAL_VIDEOS = [
         name: '1990年代：バブル崩壊と失われた10年の始まり'
     },
     {
-        id: 'gaW3TlTEECk', // 2000s walk
-        name: '2000年代：平成不況とIT革命'
+        id: '9l1mZ2Mv_s8', // 2010s
+        name: '2010年代：震災復興とスマホ・SNSの普及'
     },
     {
-        id: 'ozGpgQsrSKQ', // 2020s night timelapse 
-        name: '現代：不夜城と見えない負債'
+        id: '2Y2uK5n0Gk8', // 2020s Shibuya transition
+        name: '2020年代：パンデミックと新しい日常'
+    },
+    // --- FUTURE PREDICTIONS ---
+    {
+        id: 'UeZtlFeEcNg', // Abandoned city / ruins
+        name: '近未来予測：限界集落とインフラ崩壊（空き家問題）'
+    },
+    {
+        id: 'rZApWh2Igk4', // Factory automation / robotics
+        name: '近未来予測：労働人口激減と完全自動化社会'
+    },
+    {
+        id: 'LYubHpEMTPM', // Extreme weather / storm clouds
+        name: '近未来予測：気候変動による環境インフラの危機'
     }
 ];
 
