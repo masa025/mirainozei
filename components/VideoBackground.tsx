@@ -20,7 +20,7 @@ const HISTORICAL_VIDEOS = [
         name: '1970年代：安定成長と大衆文化'
     },
     {
-        id: 'MQAC0oCEyHs', // 1980s drive/walk (dynamic)
+        id: 'C_qi8XVP8W0', // 1980s dynamic walk
         name: '1980年代：バブル経済の絶頂'
     },
     {
