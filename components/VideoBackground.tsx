@@ -20,7 +20,7 @@ const HISTORICAL_VIDEOS = [
         name: '1970年代：安定成長と大衆文化'
     },
     {
-        id: 'C_qi8XVP8W0', // 1980s dynamic walk
+        id: 'mUISJk4MZeo', // 1980s walk
         name: '1980年代：バブル経済の絶頂'
     },
     {
@@ -37,15 +37,15 @@ const HISTORICAL_VIDEOS = [
     },
     // --- FUTURE PREDICTIONS ---
     {
-        id: 'SPTKwBxxS2g', // Abandoned city / ruins (Creative Commons safe)
+        id: '5lwwaBPHLQg', // Abandoned city / ruins (Creative Commons safe)
         name: '近未来予測：限界集落とインフラ崩壊（空き家問題）'
     },
     {
-        id: 'iLoWrpgXRXk', // Factory automation / fast robotics
+        id: 'u2BfVmmaWvk', // Factory automation / robotics (Creative Commons safe)
         name: '近未来予測：労働人口激減と完全自動化社会'
     },
     {
-        id: 'oagszCmJLpU', // Extreme weather / fast storm timelapse
+        id: 'IfD8M9pJGOM', // Extreme weather / storm clouds (Creative Commons safe)
         name: '近未来予測：気候変動による環境インフラの危機'
     }
 ];
