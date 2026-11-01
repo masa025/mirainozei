@@ -3,11 +3,10 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, ZAxis, Cell, LabelList,
-    ComposedChart, Bar, Line, Legend
+    ComposedChart, Bar, Line
 } from 'recharts';
+import WidgetFooter from './WidgetFooter';
 
-// View A Data: Scatter Plot (Cash Benefits % of GDP vs PISA Math/Reading/Science Avg Score)
-// Estimated data for illustrative purposes (OECD average context)
 const globalData = [
     { country: '日本', benefitGdp: 1.5, pisa: 520, fill: 'var(--accent-red)', size: 800 },
     { country: '米国', benefitGdp: 0.6, pisa: 489, fill: '#10b981', size: 400 },
@@ -17,14 +16,14 @@ const globalData = [
     { country: 'フランス', benefitGdp: 2.3, pisa: 494, fill: '#8b5cf6', size: 400 },
     { country: 'スウェーデン', benefitGdp: 1.8, pisa: 498, fill: '#ec4899', size: 400 },
     { country: 'ドイツ', benefitGdp: 2.2, pisa: 495, fill: '#14b8a6', size: 400 },
-    { country: 'エストニア', benefitGdp: 1.5, pisa: 524, fill: '#06b6d4', size: 400 }, // High performance, avg spending
+    { country: 'エストニア', benefitGdp: 1.5, pisa: 524, fill: '#06b6d4', size: 400 },
     { country: 'イタリア', benefitGdp: 1.1, pisa: 476, fill: '#f43f5e', size: 400 },
 ];
 
-// Custom Label for Scatter Plot (Country Name)
 const renderCustomScatterLabel = (props: any) => {
-    const { x, y, width, height, value, index } = props;
+    const { x, y, index } = props;
     const item = globalData[index];
+    if (!item) return null;
     const isJapan = item.country === '日本';
     return (
         <text
@@ -40,27 +39,20 @@ const renderCustomScatterLabel = (props: any) => {
     );
 };
 
-// View B Data: Domestic Trend (Child Benefit Budget Trillions vs PISA relative ranking or score trend)
-// Fictionalized trend to match the narrative of rising budget vs stagnant/declining relative academic edge
 const domesticData = [
     { year: '2000', budget: 1.2, pisaRank: 1 },
     { year: '2005', budget: 1.8, pisaRank: 6 },
-    { year: '2010', budget: 3.5, pisaRank: 8 }, // Introduction of massive child allowance
+    { year: '2010', budget: 3.5, pisaRank: 8 },
     { year: '2015', budget: 4.2, pisaRank: 7 },
     { year: '2020', budget: 4.8, pisaRank: 6 },
-    { year: '2023', budget: 5.5, pisaRank: 5 }, // Just shows budget going up, rank struggling to stay top
+    { year: '2023', budget: 5.5, pisaRank: 5 },
 ];
 
-// Custom formatters for line and bar labels
-const formatBudgetLabel = (value: number) => `${value}兆円`;
-const formatRankLabel = (value: number) => `${value}位`;
-
-// Custom Tooltip for Scatter
 const ScatterTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
         const data = payload[0].payload;
         return (
-            <div style={{ backgroundColor: 'var(--widget-bg)', padding: '10px', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.96)', padding: '10px', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
                 <p style={{ fontWeight: 800, margin: '0 0 5px 0', color: 'var(--text-primary)' }}>{data.country}</p>
                 <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--text-secondary)' }}>現金給付(GDP比): <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{data.benefitGdp}%</span></p>
                 <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--text-secondary)' }}>PISA平均スコア: <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{data.pisa}</span></p>
@@ -70,11 +62,10 @@ const ScatterTooltip = ({ active, payload }: any) => {
     return null;
 };
 
-// Custom Tooltip for Composed
 const ComposedTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
         return (
-            <div style={{ backgroundColor: 'var(--widget-bg)', padding: '10px', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.96)', padding: '10px', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
                 <p style={{ fontWeight: 800, margin: '0 0 5px 0', color: 'var(--text-primary)' }}>{label}年</p>
                 <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--accent-blue)' }}>児童関連予算: <span style={{ fontWeight: 700 }}>{payload[0].value} 兆円</span></p>
                 <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--accent-red)' }}>PISA総合順位: <span style={{ fontWeight: 700 }}>{payload[1].value} 位</span></p>
@@ -86,41 +77,46 @@ const ComposedTooltip = ({ active, payload, label }: any) => {
 
 export default function EducationROIWidget() {
     const [view, setView] = useState<'global' | 'domestic'>('global');
+    const [isPaused, setIsPaused] = useState(false);
 
-    // Auto-toggle views every 8 seconds
     useEffect(() => {
+        if (isPaused) return;
         const interval = setInterval(() => {
-            setView(prev => prev === 'global' ? 'domestic' : 'global');
+            setView(prev => (prev === 'global' ? 'domestic' : 'global'));
         }, 8000);
         return () => clearInterval(interval);
-    }, []);
+    }, [isPaused]);
 
     return (
-        <div className="widget" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div
+            className="widget"
+            style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={() => setIsPaused(true)}
+        >
             {/* Header & Toggle */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem', gap: '0.5rem' }}>
                 <div>
-                    <h3 style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '0.2rem', fontWeight: 600 }}>
-                        {view === 'global' ? 'ばらまき vs 学力 (国際比較)' : '予算膨張 vs 学力ランキング (過去20年)'}
+                    <h3 style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.15rem', fontWeight: 600 }}>
+                        🎓 {view === 'global' ? 'ばらまき vs 学力 (国際比較)' : '予算膨張 vs 学力順位 (国内推移)'}
                     </h3>
-                    <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.2 }}>
-                        {view === 'global' ? '投資効果の不都合な真実' : 'お金を配っても賢くならない'}
+                    <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.2 }}>
+                        {view === 'global' ? '投資効果の不都合な真実' : '現金給付4倍でも学力は停滞'}
                     </div>
                 </div>
-                {/* Manual View Toggles */}
-                <div style={{ display: 'flex', gap: '0.5rem', background: 'rgba(0,0,0,0.05)', padding: '0.25rem', borderRadius: '20px' }}>
+                <div style={{ display: 'flex', gap: '0.35rem', background: 'rgba(0,0,0,0.05)', padding: '0.2rem', borderRadius: '20px' }}>
                     <button
                         onClick={() => setView('global')}
                         style={{
                             padding: '0.2rem 0.6rem',
-                            fontSize: '0.75rem',
+                            fontSize: '0.72rem',
                             borderRadius: '15px',
-                            background: view === 'global' ? 'rgba(56, 189, 248, 0.15)' : 'transparent',
+                            background: view === 'global' ? 'rgba(37, 99, 235, 0.14)' : 'transparent',
                             color: view === 'global' ? 'var(--accent-blue)' : 'var(--text-secondary)',
                             fontWeight: view === 'global' ? 700 : 500,
-                            border: view === 'global' ? '1px solid rgba(56, 189, 248, 0.3)' : '1px solid transparent',
+                            border: view === 'global' ? '1px solid rgba(37, 99, 235, 0.3)' : '1px solid transparent',
                             cursor: 'pointer',
-                            transition: 'all 0.2s ease'
                         }}
                     >
                         国際
@@ -129,14 +125,13 @@ export default function EducationROIWidget() {
                         onClick={() => setView('domestic')}
                         style={{
                             padding: '0.2rem 0.6rem',
-                            fontSize: '0.75rem',
+                            fontSize: '0.72rem',
                             borderRadius: '15px',
-                            background: view === 'domestic' ? 'rgba(56, 189, 248, 0.15)' : 'transparent',
+                            background: view === 'domestic' ? 'rgba(37, 99, 235, 0.14)' : 'transparent',
                             color: view === 'domestic' ? 'var(--accent-blue)' : 'var(--text-secondary)',
                             fontWeight: view === 'domestic' ? 700 : 500,
-                            border: view === 'domestic' ? '1px solid rgba(56, 189, 248, 0.3)' : '1px solid transparent',
+                            border: view === 'domestic' ? '1px solid rgba(37, 99, 235, 0.3)' : '1px solid transparent',
                             cursor: 'pointer',
-                            transition: 'all 0.2s ease'
                         }}
                     >
                         国内
@@ -147,22 +142,20 @@ export default function EducationROIWidget() {
             {/* Chart Area */}
             <div style={{ flex: 1, position: 'relative', minHeight: '220px' }}>
                 <AnimatePresence mode="wait">
-
-                    {/* VIEW A: Global Scatter */}
                     {view === 'global' && (
                         <motion.div
                             key="global-view"
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: 20 }}
-                            transition={{ duration: 0.4 }}
+                            transition={{ duration: 0.35 }}
                             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}
                         >
-                            <div style={{ textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '0.75rem', marginBottom: '0.5rem' }}>
-                                現金給付が多い国＝学力が高い、という相関関係は無い
+                            <div style={{ textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '0.72rem', marginBottom: '0.35rem' }}>
+                                現金給付が多い国＝学力が高い、という相関関係は存在しない
                             </div>
                             <ResponsiveContainer width="100%" height="100%">
-                                <ScatterChart margin={{ top: 10, right: 30, left: -20, bottom: 10 }}>
+                                <ScatterChart margin={{ top: 14, right: 24, left: -20, bottom: 10 }}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
                                     <XAxis
                                         type="number"
@@ -186,7 +179,7 @@ export default function EducationROIWidget() {
                                     />
                                     <ZAxis type="number" dataKey="size" range={[100, 600]} name="size" />
                                     <RechartsTooltip content={<ScatterTooltip />} cursor={{ strokeDasharray: '3 3', stroke: 'rgba(0,0,0,0.1)' }} />
-                                    <Scatter name="Countries" data={globalData} animationDuration={1000}>
+                                    <Scatter name="Countries" data={globalData} animationDuration={900}>
                                         {globalData.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={entry.fill} fillOpacity={0.8} />
                                         ))}
@@ -197,71 +190,60 @@ export default function EducationROIWidget() {
                         </motion.div>
                     )}
 
-                    {/* VIEW B: Domestic Composed */}
                     {view === 'domestic' && (
                         <motion.div
                             key="domestic-view"
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: 20 }}
-                            transition={{ duration: 0.4 }}
+                            transition={{ duration: 0.35 }}
                             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}
                         >
-                            <div style={{ textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '0.75rem', marginBottom: '0.5rem' }}>
-                                現金給付予算は4倍に膨張したが、相対的な学力順位は低下・停滞
+                            <div style={{ textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '0.72rem', marginBottom: '0.35rem' }}>
+                                児童関連予算は4.5倍に膨張したが、PISA学力順位は1位→5〜8位へ停滞
                             </div>
-                            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '0.5rem' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                                    <div style={{ width: '12px', height: '12px', background: 'rgba(59, 130, 246, 0.3)', borderRadius: '2px' }}></div>
-                                    児童関連予算
+                            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '0.35rem' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
+                                    <div style={{ width: '10px', height: '10px', background: 'rgba(59, 130, 246, 0.3)', borderRadius: '2px' }}></div>
+                                    児童関連予算(兆円)
                                 </div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                                    <div style={{ width: '12px', height: '3px', background: 'var(--accent-red)', borderRadius: '2px' }}></div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
+                                    <div style={{ width: '10px', height: '3px', background: 'var(--accent-red)', borderRadius: '2px' }}></div>
                                     PISA総合順位
                                 </div>
                             </div>
                             <ResponsiveContainer width="100%" height="100%">
-                                <ComposedChart data={domesticData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
+                                <ComposedChart data={domesticData} margin={{ top: 16, right: 8, left: -20, bottom: 0 }}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
                                     <XAxis dataKey="year" tick={{ fill: 'var(--text-tertiary)', fontSize: 10 }} tickLine={false} axisLine={false} />
-
-                                    {/* Left Axis: Budget (Bar) */}
-                                    <YAxis
-                                        yAxisId="left"
-                                        tick={{ fill: 'var(--text-tertiary)', fontSize: 10 }}
-                                        tickLine={false}
-                                        axisLine={false}
-                                        domain={[0, 6]}
-                                    />
-                                    {/* Right Axis: Rank (Line, Reversed) */}
-                                    <YAxis
-                                        yAxisId="right"
-                                        orientation="right"
-                                        reversed={true}
-                                        tick={{ fill: 'var(--text-tertiary)', fontSize: 10 }}
-                                        tickLine={false}
-                                        axisLine={false}
-                                        domain={[0, 15]}
-                                    />
-
+                                    <YAxis yAxisId="left" tick={{ fill: 'var(--text-tertiary)', fontSize: 10 }} tickLine={false} axisLine={false} domain={[0, 6.5]} />
+                                    <YAxis yAxisId="right" orientation="right" reversed={true} tick={{ fill: 'var(--text-tertiary)', fontSize: 10 }} tickLine={false} axisLine={false} domain={[0, 15]} />
                                     <RechartsTooltip content={<ComposedTooltip />} cursor={{ fill: 'rgba(0,0,0,0.02)' }} />
-
-                                    <Bar yAxisId="left" dataKey="budget" name="児童関連予算(兆円)" fill="var(--accent-blue)" fillOpacity={0.3} radius={[4, 4, 0, 0]} animationDuration={1000} />
-                                    <Line yAxisId="right" type="monotone" dataKey="pisaRank" name="PISA総合順位" stroke="var(--accent-red)" strokeWidth={3} dot={{ r: 5, fill: 'var(--accent-red)' }} activeDot={{ r: 8 }} animationDuration={1000} />
+                                    <Bar yAxisId="left" dataKey="budget" name="児童関連予算(兆円)" fill="var(--accent-blue)" fillOpacity={0.3} radius={[4, 4, 0, 0]} animationDuration={900}>
+                                        <LabelList dataKey="budget" position="top" formatter={(v: any) => `${v}兆`} style={{ fontSize: '9px', fill: 'var(--accent-blue)', fontWeight: 700 }} />
+                                    </Bar>
+                                    <Line yAxisId="right" type="monotone" dataKey="pisaRank" name="PISA総合順位" stroke="var(--accent-red)" strokeWidth={3} dot={{ r: 4, fill: 'var(--accent-red)' }} animationDuration={900}>
+                                        <LabelList dataKey="pisaRank" position="bottom" formatter={(v: any) => `${v}位`} style={{ fontSize: '9px', fill: 'var(--accent-red)', fontWeight: 800 }} />
+                                    </Line>
                                 </ComposedChart>
                             </ResponsiveContainer>
                         </motion.div>
                     )}
-
                 </AnimatePresence>
             </div>
 
-            {/* Conclusion / Insight Footer */}
-            <div style={{ marginTop: '1rem', padding: '0.75rem', background: 'rgba(239, 68, 68, 0.05)', borderRadius: '8px', borderLeft: '4px solid var(--accent-red)' }}>
-                <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                    <strong style={{ color: 'var(--accent-red)' }}>教育制度への投資なき単なる「現金給付」</strong>は、子供の将来の稼ぐ力（学力）には直結しません。票田目当てのばらまきか、真の未来への投資かを見極める必要があります。
+            <div style={{ marginTop: '0.65rem', padding: '0.55rem 0.75rem', background: 'rgba(239, 68, 68, 0.05)', borderRadius: '8px', borderLeft: '4px solid var(--accent-red)' }}>
+                <p style={{ margin: 0, fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
+                    <strong style={{ color: 'var(--accent-red)' }}>教育インフラへの投資なき「現金給付」</strong>は将来の稼ぐ力（学力）には直結しません。票田目当てのばらまきか真の投資かを見極める必要があります。
                 </p>
             </div>
+
+            <WidgetFooter
+                sourceName="OECD Family Database / PISA 2022"
+                sourceUrl="https://www.oecd.org/pisa/"
+                shareText="【教育投資の不都合な真実】過去20年で日本の児童関連予算は4倍以上に膨張した一方、PISA学力順位は停滞。教育現場への投資なき「現金ばらまき」の限界。"
+                isPaused={isPaused}
+            />
         </div>
     );
 }

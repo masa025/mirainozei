@@ -31,8 +31,6 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        site: '@mirainozei',
-        creator: '@mirainozei',
         title: 'ミライノゼイ | リアルタイム・日本の現在地',
         description: '1秒ごとに増え続ける国の借金、減り続ける人口。日本の現実を直視するためのライブ・データ・ダッシュボード。',
         images: ['/og-image.png'], // Same image or a specific twitter one
@@ -71,10 +69,6 @@ export default function RootLayout({
                             <span style={{ fontSize: '0.8rem', color: 'var(--text-tertiary)', fontWeight: 600, marginLeft: '0.75rem', letterSpacing: '0.05em' }}>LIVE DASHBOARD</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
-                            <a href="https://x.com/mirainozei" target="_blank" rel="noopener noreferrer" className="header-link">
-                                <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.008 5.96H5.078z"></path></svg>
-                                公式
-                            </a>
                             <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><div className="live-indicator" style={{ width: '8px', height: '8px' }}></div> 更新: リアルタイム</span>
                         </div>
                     </div>

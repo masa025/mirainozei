@@ -190,10 +190,38 @@ export default function RegionalPopulationWidget() {
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', fontSize: '1.25rem', color: '#f8fafc', fontWeight: 800, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
                         <MapPin size={22} strokeWidth={2.5} style={{ color: isDeclining ? '#fca5a5' : '#93c5fd' }} />
-                        {regionData.name} のリアルタイム人口推計
+                        <span>{regionData.name} のリアルタイム人口推計</span>
+                        <select
+                            aria-label="都道府県を切り替え"
+                            value={regionData.key}
+                            onChange={(e) => {
+                                const selected = PREFECTURE_DATA_WITH_RANK[e.target.value];
+                                if (selected) {
+                                    setRegionData(selected);
+                                    setSimulatedCurrent(selected.current);
+                                }
+                            }}
+                            style={{
+                                marginLeft: '0.4rem',
+                                background: 'rgba(15, 23, 42, 0.85)',
+                                color: '#f8fafc',
+                                border: '1px solid rgba(148, 163, 184, 0.4)',
+                                borderRadius: '8px',
+                                padding: '3px 8px',
+                                fontSize: '0.8rem',
+                                fontWeight: 700,
+                                cursor: 'pointer',
+                            }}
+                        >
+                            {Object.entries(PREFECTURE_DATA_WITH_RANK).map(([key, pref]) => (
+                                <option key={key} value={key}>
+                                    {pref.name}（減少率{pref.rank}位）
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '4px', marginLeft: '2rem', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <span>※IPアドレスから推定された地域を表示しています（実際と異なる場合があります）</span>
+                        <span>※IPアドレスから推定された地域を表示しています（プルダウンで任意の都道府県に切替可能）</span>
                     </div>
                 </div>
                 {isDeclining ? (
@@ -266,6 +294,51 @@ export default function RegionalPopulationWidget() {
                     </div>
                 </div>
 
+            </div>
+
+            {/* 3. Seamless 2x-Duplicated Nationwide Ticker (Marquee) */}
+            <div
+                style={{
+                    marginTop: '0.25rem',
+                    paddingTop: '0.65rem',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    zIndex: 10,
+                    maskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)',
+                    WebkitMaskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)',
+                }}
+            >
+                <div className="seamless-marquee-track">
+                    {[...RANKED_PREFECTURES.slice(0, 15), ...RANKED_PREFECTURES.slice(0, 15)].map((pref, idx) => (
+                        <button
+                            key={`${pref.key}-${idx}`}
+                            onClick={() => {
+                                setRegionData(pref);
+                                setSimulatedCurrent(pref.current);
+                            }}
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.35rem',
+                                background: 'rgba(255, 255, 255, 0.07)',
+                                border: '1px solid rgba(255, 255, 255, 0.14)',
+                                borderRadius: '999px',
+                                padding: '3px 10px',
+                                fontSize: '0.72rem',
+                                color: '#e2e8f0',
+                                cursor: 'pointer',
+                                whiteSpace: 'nowrap',
+                            }}
+                        >
+                            <span style={{ color: '#f87171', fontWeight: 800 }}>ワースト{pref.rank}位</span>
+                            <span style={{ fontWeight: 700 }}>{pref.name}</span>
+                            <span style={{ color: '#fca5a5' }}>
+                                (-{(pref.declineRate * 100).toFixed(1)}% / 2050年)
+                            </span>
+                        </button>
+                    ))}
+                </div>
             </div>
 
             {/* Subtle Gradient Background Effect for Red Alarm - Made darker for contrast */}

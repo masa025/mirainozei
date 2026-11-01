@@ -36,10 +36,11 @@ export default function AnimatedBento({ children }: { children: ReactNode }) {
     );
 }
 
-export function AnimatedCard({ children, className = "", style }: { children: ReactNode, className?: string, style?: React.CSSProperties }) {
+export function AnimatedCard({ children, className = "", style, id }: { children: ReactNode, className?: string, style?: React.CSSProperties, id?: string }) {
     // A wrapper that handles both the staggered entrance and the custom CSS properties for hover glow
     return (
         <motion.div
+            id={id}
             className={className}
             style={style}
             variants={itemVariants}
