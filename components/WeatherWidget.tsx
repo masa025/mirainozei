@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Flame, Snowflake } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import WidgetFooter from './WidgetFooter';
 
 const CITIES = [
     {
@@ -199,9 +200,11 @@ export default function WeatherWidget() {
                 </AnimatePresence>
             </div>
 
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-tertiary)', marginTop: '0.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.5rem', textAlign: 'right' }}>
-                過去データ: JMA | 現在: Open-Meteo
-            </div>
+            <WidgetFooter
+                sourceName="気象庁「過去の気象データ(1980年代平年値)」/ Open-Meteo"
+                sourceUrl="https://www.data.jma.go.jp/stats/etrn/index.php"
+                shareText={`【環境債務の可視化】${currentCity.name}の現在気温は1980年代の同月平均と比較して${cityWeather ? `${cityWeather.anomaly >= 0 ? '+' : ''}${cityWeather.anomaly.toFixed(1)}℃` : '上昇傾向'}。財政赤字だけでなく気候変動のツケも将来世代へ累積しています。`}
+            />
         </div>
     );
 }

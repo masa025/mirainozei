@@ -64,17 +64,17 @@ export default function BullyingPreventionWidget() {
                 return {
                     subtitle: 'いじめ対策予算 vs 認知件数・不登校',
                     title: '予算増でも過去最多の逆行',
-                    desc: '対策予算を増やしても認知73万件・不登校34.6万人と過去最悪を更新'
+                    desc: '対策予算を増やしても認知76.9万件・不登校35.4万人と過去最悪を更新'
                 };
             case 'viewB':
                 return {
                     subtitle: '対策予算 vs 重大事態（命の危機）',
                     title: '防げない「重大事態」の倍増',
-                    desc: 'わずか4年で1.8倍（1,306件）へ急増した生命・心身の深刻被害'
+                    desc: 'わずか5年で約2倍（1,405件）へ急増した生命・心身の深刻被害'
                 };
             case 'viewC':
                 return {
-                    subtitle: '報告解消率80% vs 重大事態急増',
+                    subtitle: '報告解消率77% vs 重大事態急増',
                     title: '形骸化する「解消率」の闇',
                     desc: '「約8割が解決」と報告される裏で、深刻事案と不登校が過去最多'
                 };
@@ -280,7 +280,7 @@ export default function BullyingPreventionWidget() {
                                     ①「3ヶ月で解消」という形骸化ルール
                                 </div>
                                 <p style={{ margin: 0, fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
-                                    文科省定義では「3ヶ月間行為が止み、被害者が苦痛を感じていなければ解消」とみなされるため、表面的な謝罪会で「解消率77%」が作られる一方、水面下で深刻化し重大事態（1,306件）へ爆発しています。
+                                    文科省定義では「3ヶ月間行為が止み、被害者が苦痛を感じていなければ解消」とみなされるため、表面的な謝罪会で「解消率77%」が作られる一方、水面下で深刻化し重大事態（1,405件）へ爆発しています。
                                 </p>
                             </div>
                             <div style={{ background: 'rgba(37, 99, 235, 0.06)', borderRadius: '8px', padding: '0.6rem 0.75rem', borderLeft: '3px solid var(--accent-blue)' }}>
@@ -296,7 +296,7 @@ export default function BullyingPreventionWidget() {
                                     ③ 被害者が逃げ、加害者が守られる逆転構造
                                 </div>
                                 <p style={{ margin: 0, fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
-                                    学校教育法第35条の「加害児童への出席停止措置」は全国でほぼ適用されず、結果として被害児童側が不登校（34.6万人）に追い込まれる不条理が続いています。
+                                    学校教育法第35条の「加害児童への出席停止措置」は全国でほぼ適用されず、結果として被害児童側が不登校（35.4万人）に追い込まれる不条理が続いています。
                                 </p>
                             </div>
                         </motion.div>

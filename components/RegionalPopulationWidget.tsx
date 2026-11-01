@@ -3,56 +3,56 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, TrendingDown, AlertTriangle, TrendingUp } from 'lucide-react';
 
-// Hardcoded demographic data based on the National Institute of Population and Social Security Research (IPSS) 2023 projections
-// Data format: [Current Population (approx 2020/2023), Projected 2050 Population]
+// Demographic data based on MIC (総務省統計局「人口推計」最新公表値) & IPSS (国立社会保障・人口問題研究所「日本の地域別将来推計人口（令和5年推計）」)
+// Data format: [Current Population (latest MIC estimate), Projected 2050 Population (IPSS)]
 const PREFECTURE_DATA: Record<string, { current: number; pro2050: number; name: string }> = {
-    'Hokkaido': { name: '北海道', current: 5224614, pro2050: 3820000 },
-    'Aomori': { name: '青森県', current: 1237984, pro2050: 740000 },
-    'Iwate': { name: '岩手県', current: 1210534, pro2050: 810000 },
-    'Miyagi': { name: '宮城県', current: 2301996, pro2050: 1860000 },
-    'Akita': { name: '秋田県', current: 959502, pro2050: 530000 },
-    'Yamagata': { name: '山形県', current: 1068027, pro2050: 670000 },
-    'Fukushima': { name: '福島県', current: 1833152, pro2050: 1140000 },
-    'Ibaraki': { name: '茨城県', current: 2867009, pro2050: 2280000 },
-    'Tochigi': { name: '栃木県', current: 1933146, pro2050: 1530000 },
-    'Gunma': { name: '群馬県', current: 1939110, pro2050: 1510000 },
-    'Saitama': { name: '埼玉県', current: 7344765, pro2050: 6510000 },
-    'Chiba': { name: '千葉県', current: 6284480, pro2050: 5540000 },
-    'Tokyo': { name: '東京都', current: 14047594, pro2050: 14400000 }, // Tokyo is an outlier (slight growth/plateau)
-    'Kanagawa': { name: '神奈川県', current: 9237337, pro2050: 8250000 },
-    'Niigata': { name: '新潟県', current: 2201272, pro2050: 1530000 },
-    'Toyama': { name: '富山県', current: 1034814, pro2050: 760000 },
-    'Ishikawa': { name: '石川県', current: 1132526, pro2050: 920000 },
-    'Fukui': { name: '福井県', current: 766863, pro2050: 580000 },
-    'Yamanashi': { name: '山梨県', current: 809974, pro2050: 610000 },
-    'Nagano': { name: '長野県', current: 2048011, pro2050: 1540000 },
-    'Gifu': { name: '岐阜県', current: 1978742, pro2050: 1500000 },
-    'Shizuoka': { name: '静岡県', current: 3633202, pro2050: 2790000 },
-    'Aichi': { name: '愛知県', current: 7542415, pro2050: 6760000 },
-    'Mie': { name: '三重県', current: 1770254, pro2050: 1350000 },
-    'Shiga': { name: '滋賀県', current: 1413610, pro2050: 1250000 },
-    'Kyoto': { name: '京都府', current: 2578087, pro2050: 2060000 },
-    'Osaka': { name: '大阪府', current: 8837685, pro2050: 7370000 },
-    'Hyogo': { name: '兵庫県', current: 5465002, pro2050: 4420000 },
-    'Nara': { name: '奈良県', current: 1324473, pro2050: 1000000 },
-    'Wakayama': { name: '和歌山県', current: 922584, pro2050: 610000 },
-    'Tottori': { name: '鳥取県', current: 553407, pro2050: 400000 },
-    'Shimane': { name: '島根県', current: 671126, pro2050: 480000 },
-    'Okayama': { name: '岡山県', current: 1888432, pro2050: 1480000 },
-    'Hiroshima': { name: '広島県', current: 2799702, pro2050: 2210000 },
-    'Yamaguchi': { name: '山口県', current: 1342059, pro2050: 940000 },
-    'Tokushima': { name: '徳島県', current: 719559, pro2050: 490000 },
-    'Kagawa': { name: '香川県', current: 950244, pro2050: 710000 },
-    'Ehime': { name: '愛媛県', current: 1334841, pro2050: 950000 },
-    'Kochi': { name: '高知県', current: 691527, pro2050: 450000 },
-    'Fukuoka': { name: '福岡県', current: 5135214, pro2050: 4560000 },
-    'Saga': { name: '佐賀県', current: 811442, pro2050: 640000 },
-    'Nagasaki': { name: '長崎県', current: 1312317, pro2050: 940000 },
-    'Kumamoto': { name: '熊本県', current: 1738301, pro2050: 1370000 },
-    'Oita': { name: '大分県', current: 1123852, pro2050: 840000 },
-    'Miyazaki': { name: '宮崎県', current: 1069576, pro2050: 790000 },
-    'Kagoshima': { name: '鹿児島県', current: 1588256, pro2050: 1140000 },
-    'Okinawa': { name: '沖縄県', current: 1467480, pro2050: 1420000 }
+    'Hokkaido': { name: '北海道', current: 5043000, pro2050: 3820000 },
+    'Aomori': { name: '青森県', current: 1165000, pro2050: 740000 },
+    'Iwate': { name: '岩手県', current: 1145000, pro2050: 810000 },
+    'Miyagi': { name: '宮城県', current: 2248000, pro2050: 1860000 },
+    'Akita': { name: '秋田県', current: 897000, pro2050: 530000 },
+    'Yamagata': { name: '山形県', current: 1011000, pro2050: 670000 },
+    'Fukushima': { name: '福島県', current: 1743000, pro2050: 1140000 },
+    'Ibaraki': { name: '茨城県', current: 2806000, pro2050: 2280000 },
+    'Tochigi': { name: '栃木県', current: 1885000, pro2050: 1530000 },
+    'Gunma': { name: '群馬県', current: 1890000, pro2050: 1510000 },
+    'Saitama': { name: '埼玉県', current: 7332000, pro2050: 6510000 },
+    'Chiba': { name: '千葉県', current: 6278000, pro2050: 5540000 },
+    'Tokyo': { name: '東京都', current: 14178000, pro2050: 14400000 }, // Tokyo is an outlier (slight growth/plateau)
+    'Kanagawa': { name: '神奈川県', current: 9225000, pro2050: 8250000 },
+    'Niigata': { name: '新潟県', current: 2099000, pro2050: 1530000 },
+    'Toyama': { name: '富山県', current: 997000, pro2050: 760000 },
+    'Ishikawa': { name: '石川県', current: 1101000, pro2050: 920000 },
+    'Fukui': { name: '福井県', current: 739000, pro2050: 580000 },
+    'Yamanashi': { name: '山梨県', current: 791000, pro2050: 610000 },
+    'Nagano': { name: '長野県', current: 1987000, pro2050: 1540000 },
+    'Gifu': { name: '岐阜県', current: 1916000, pro2050: 1500000 },
+    'Shizuoka': { name: '静岡県', current: 3527000, pro2050: 2790000 },
+    'Aichi': { name: '愛知県', current: 7460000, pro2050: 6760000 },
+    'Mie': { name: '三重県', current: 1711000, pro2050: 1350000 },
+    'Shiga': { name: '滋賀県', current: 1402000, pro2050: 1250000 },
+    'Kyoto': { name: '京都府', current: 2523000, pro2050: 2060000 },
+    'Osaka': { name: '大阪府', current: 8757000, pro2050: 7370000 },
+    'Hyogo': { name: '兵庫県', current: 5337000, pro2050: 4420000 },
+    'Nara': { name: '奈良県', current: 1285000, pro2050: 1000000 },
+    'Wakayama': { name: '和歌山県', current: 880000, pro2050: 610000 },
+    'Tottori': { name: '鳥取県', current: 531000, pro2050: 400000 },
+    'Shimane': { name: '島根県', current: 642000, pro2050: 480000 },
+    'Okayama': { name: '岡山県', current: 1831000, pro2050: 1480000 },
+    'Hiroshima': { name: '広島県', current: 2714000, pro2050: 2210000 },
+    'Yamaguchi': { name: '山口県', current: 1281000, pro2050: 940000 },
+    'Tokushima': { name: '徳島県', current: 685000, pro2050: 490000 },
+    'Kagawa': { name: '香川県', current: 917000, pro2050: 710000 },
+    'Ehime': { name: '愛媛県', current: 1276000, pro2050: 950000 },
+    'Kochi': { name: '高知県', current: 656000, pro2050: 450000 },
+    'Fukuoka': { name: '福岡県', current: 5092000, pro2050: 4560000 },
+    'Saga': { name: '佐賀県', current: 788000, pro2050: 640000 },
+    'Nagasaki': { name: '長崎県', current: 1252000, pro2050: 940000 },
+    'Kumamoto': { name: '熊本県', current: 1697000, pro2050: 1370000 },
+    'Oita': { name: '大分県', current: 1084000, pro2050: 840000 },
+    'Miyazaki': { name: '宮崎県', current: 1033000, pro2050: 790000 },
+    'Kagoshima': { name: '鹿児島県', current: 1532000, pro2050: 1140000 },
+    'Okinawa': { name: '沖縄県', current: 1466000, pro2050: 1420000 }
 };
 
 // Pre-calculate the ranking based on decline percentage (Worst decline = higher rank number, or let's say "Decline Rate Rank N / 47")
@@ -339,6 +339,72 @@ export default function RegionalPopulationWidget() {
                         </button>
                     ))}
                 </div>
+            </div>
+
+            {/* 4. Source Citation & Share Bar */}
+            <div
+                style={{
+                    paddingTop: '0.6rem',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: '0.5rem',
+                    fontSize: '0.7rem',
+                    color: '#cbd5e1',
+                    zIndex: 10,
+                }}
+            >
+                <span
+                    style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        background: 'rgba(255, 255, 255, 0.08)',
+                        padding: '3px 9px',
+                        borderRadius: '6px',
+                        fontWeight: 500,
+                    }}
+                >
+                    📚 出典:{' '}
+                    <a
+                        href="https://www.ipss.go.jp/pp-shicyoson/j/shicyoson23/t-page.asp"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: '#93c5fd', textDecoration: 'underline' }}
+                    >
+                        国立社会保障・人口問題研究所「日本の地域別将来推計人口」/ 総務省「人口推計(最新)」
+                    </a>
+                </span>
+
+                <a
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                        `【${regionData.name}の人口推計】現在の推計人口約${regionData.current.toLocaleString()}人から、2050年には約${regionData.pro2050.toLocaleString()}人へ（${
+                            isDeclining ? `-${declinePercentage}%減少・全国ワースト${regionData.rank}位` : '増加予測'
+                        }）。\n#ミライノゼイ https://mirainozei.netlify.app`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        padding: '3px 10px',
+                        borderRadius: '999px',
+                        background: 'rgba(255, 255, 255, 0.12)',
+                        color: '#f8fafc',
+                        fontWeight: 600,
+                        fontSize: '0.7rem',
+                        textDecoration: 'none',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                    }}
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true" width="11" height="11" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.008 5.96H5.078z" />
+                    </svg>
+                    この現実をシェア
+                </a>
             </div>
 
             {/* Subtle Gradient Background Effect for Red Alarm - Made darker for contrast */}

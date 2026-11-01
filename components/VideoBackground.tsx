@@ -1,67 +1,146 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-const HISTORICAL_VIDEOS = [
+interface EraVideo {
+    id: string;
+    era: string;
+    category: 'ARCHIVE' | 'PRESENT' | 'COLLAPSE' | 'FUTURE';
+    name: string;
+    sourceChannel: string;
+}
+
+const HISTORICAL_VIDEOS: EraVideo[] = [
     {
         id: '0UMxkrzhQo4',
-        era: 'ARCHIVE 01',
-        name: '大正・昭和初期：近代化の夜明け',
+        era: 'ARCHIVE 1910s',
+        category: 'ARCHIVE',
+        name: '大正・昭和初期：近代化の夜明け（1910年代・東京カラー化映像）',
+        sourceChannel: 'NASS Archive',
+    },
+    {
+        id: 'MUOPBMxjwh0',
+        era: 'ARCHIVE 1930s',
+        category: 'ARCHIVE',
+        name: '1930年代：戦前・昭和モダンの銀座と浅草（カラー復元記録）',
+        sourceChannel: '昭和モダンアーカイブ',
     },
     {
         id: 'TA9UbUnvT-k',
-        era: 'ARCHIVE 02',
-        name: '1950年代：戦後復興と熱気',
+        era: 'ARCHIVE 1956',
+        category: 'ARCHIVE',
+        name: '1956年：戦後復興と昭和31年の東京（銀座・丸の内・浅草）',
+        sourceChannel: 'Tokyo Archive 60fps',
+    },
+    {
+        id: '6cj8Y2wRgpA',
+        era: 'ARCHIVE 1964',
+        category: 'ARCHIVE',
+        name: '1964年：東京五輪と高度経済成長の熱気（銀座・British Pathé）',
+        sourceChannel: 'British Pathé',
     },
     {
         id: '1P7JWx8pMHg',
-        era: 'ARCHIVE 03',
-        name: '1960年代：高度経済成長期',
+        era: 'ARCHIVE 1965',
+        category: 'ARCHIVE',
+        name: '1965年：高度経済成長期の東京と暮らし（昭和40年アーカイブ）',
+        sourceChannel: 'Tokyo Archive 60fps',
     },
     {
         id: 'FQXY6vm0ECI',
-        era: 'ARCHIVE 04',
-        name: '1970年代：安定成長と大衆文化',
+        era: 'ARCHIVE 1970s',
+        category: 'ARCHIVE',
+        name: '1970年代：雨の東京ストリートと高層ビル群の誕生',
+        sourceChannel: '70s Japan Archive',
     },
     {
         id: 'mUISJk4MZeo',
-        era: 'ARCHIVE 05',
-        name: '1980年代：バブル経済の絶頂',
+        era: 'ARCHIVE 1980s',
+        category: 'ARCHIVE',
+        name: '1980年代：バブル経済の絶頂とジャパン・アズ・ナンバーワン',
+        sourceChannel: '80s HD Archive',
+    },
+    {
+        id: 'KJQsGpCDX54',
+        era: 'ARCHIVE 1992',
+        category: 'ARCHIVE',
+        name: '1992年：バブル崩壊直後の東京の日常風景',
+        sourceChannel: 'Tokyo 1992 Archive',
     },
     {
         id: 'wkwPcdxpd50',
-        era: 'ARCHIVE 06',
-        name: '1990年代：バブル崩壊と失われた10年',
+        era: 'ARCHIVE 1994',
+        category: 'ARCHIVE',
+        name: '1994年：失われた30年の始まり・90年代東京の記録（ITN Archive）',
+        sourceChannel: 'ITN Archive',
     },
     {
-        id: 'SoA5td8UU30',
-        era: 'PRESENT 07',
-        name: '2010年代：スマホ普及と都市の風景',
+        id: 'gaW3TlTEECk',
+        era: 'ARCHIVE 2000s',
+        category: 'ARCHIVE',
+        name: '2000年代：平成デフレ不況とガラケー・IT黎明期の東京',
+        sourceChannel: '2000s Tokyo Archive',
     },
     {
         id: 'K5ksHjgH4D8',
-        era: 'PRESENT 08',
-        name: '2020年代：転換期の東京',
+        era: 'ARCHIVE 2020',
+        category: 'ARCHIVE',
+        name: '2020年：コロナ禍・緊急事態宣言で無人となった原宿ストリート',
+        sourceChannel: 'Tokyo Street Archive',
     },
     {
-        id: '5lwwaBPHLQg',
-        era: 'FUTURE 09',
-        name: '近未来予測：限界集落とインフラ老朽化',
+        id: '0nTO4zSEpOs',
+        era: 'PRESENT 2020s',
+        category: 'PRESENT',
+        name: '2020年代：現代の東京・渋谷ナイトウォーク（インバウンドとネオン街）',
+        sourceChannel: 'VIRTUAL JAPAN',
     },
     {
-        id: 'rZApWh2Igk4',
-        era: 'FUTURE 10',
-        name: '近未来予測：労働人口激減と自動化社会',
+        id: '0qH6cUbsnak',
+        era: 'PRESENT 2020s',
+        category: 'PRESENT',
+        name: '現代：一極集中する巨大都市・東京の上空8Kタイムラプス',
+        sourceChannel: 'Tokyo Aerial 8K',
     },
     {
-        id: 'IfD8M9pJGOM',
-        era: 'FUTURE 11',
-        name: '近未来予測：気候変動と環境インフラ危機',
+        id: 'rb0zOstIiyU',
+        era: 'COLLAPSE 01',
+        category: 'COLLAPSE',
+        name: '人口減少の象徴：かつて人口密度世界一だった「軍艦島（端島）」の廃墟群',
+        sourceChannel: '4K Drone Archive',
+    },
+    {
+        id: 'DBVTwL185u0',
+        era: 'COLLAPSE 02',
+        category: 'COLLAPSE',
+        name: '地方衰退の現実：放置された巨大温泉街・鬼怒川廃墟群ドローン空撮',
+        sourceChannel: 'Drone Japan 4K',
+    },
+    {
+        id: 'BSdyecIafkU',
+        era: 'COLLAPSE 03',
+        category: 'COLLAPSE',
+        name: '限界集落・廃村の現実：地図から消えゆく北関東・鬼怒木集落の記録',
+        sourceChannel: 'Japan Ruins 4K',
+    },
+    {
+        id: 'u2BfVmmaWvk',
+        era: 'FUTURE 01',
+        category: 'FUTURE',
+        name: '近未来予測：労働人口激減と日本の産業用ロボット（FANUC）完全自動化工場',
+        sourceChannel: 'FANUC Official',
+    },
+    {
+        id: '8nqU_qDomFk',
+        era: 'FUTURE 02',
+        category: 'FUTURE',
+        name: '近未来予測：気候変動と激甚化する日本の巨大台風・高潮災害',
+        sourceChannel: 'Japan Disaster Archive 4K',
     },
 ];
 
 export default function VideoBackground() {
     const [isMounted, setIsMounted] = useState(false);
-    const [videoIndex, setVideoIndex] = useState(4); // Default 1980s or random on mount
+    const [videoIndex, setVideoIndex] = useState(6); // Default 1980s before randomizing on mount
 
     useEffect(() => {
         setIsMounted(true);
@@ -73,9 +152,22 @@ export default function VideoBackground() {
 
     const currentVideo = HISTORICAL_VIDEOS[videoIndex];
 
+    const handlePrevEra = () => {
+        setVideoIndex((prev) => (prev - 1 + HISTORICAL_VIDEOS.length) % HISTORICAL_VIDEOS.length);
+    };
+
     const handleNextEra = () => {
         setVideoIndex((prev) => (prev + 1) % HISTORICAL_VIDEOS.length);
     };
+
+    const badgeColor =
+        currentVideo.category === 'COLLAPSE'
+            ? { bg: 'rgba(239, 68, 68, 0.35)', text: '#fca5a5', border: 'rgba(252, 165, 165, 0.35)' }
+            : currentVideo.category === 'FUTURE'
+              ? { bg: 'rgba(245, 158, 11, 0.35)', text: '#fcd34d', border: 'rgba(252, 211, 77, 0.35)' }
+              : currentVideo.category === 'PRESENT'
+                ? { bg: 'rgba(16, 185, 129, 0.35)', text: '#6ee7b7', border: 'rgba(110, 231, 183, 0.35)' }
+                : { bg: 'rgba(59, 130, 246, 0.35)', text: '#93c5fd', border: 'rgba(147, 197, 253, 0.35)' };
 
     return (
         <>
@@ -113,7 +205,7 @@ export default function VideoBackground() {
                         style={{ width: '100%', height: '100%', border: 'none', pointerEvents: 'none' }}
                         allow="autoplay; encrypted-media; picture-in-picture"
                         allowFullScreen
-                        title="Historical and Future Japan Background Video"
+                        title={currentVideo.name}
                     />
                 </div>
 
@@ -145,49 +237,129 @@ export default function VideoBackground() {
                 />
             </div>
 
-            {/* 4. Interactive Era Switcher Pill (bottom-left) */}
-            <button
-                onClick={handleNextEra}
-                title="クリックして背景の時代映像を切り替え"
+            {/* 4. Interactive Era Switcher Dock (bottom-left) */}
+            <div
                 style={{
                     position: 'fixed',
-                    bottom: '1.1rem',
-                    left: '1.25rem',
+                    bottom: '1rem',
+                    left: '1rem',
                     zIndex: 45,
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.5rem',
+                    gap: '0.4rem',
                     color: '#f8fafc',
-                    fontSize: '0.73rem',
+                    fontSize: '0.72rem',
                     fontWeight: 600,
-                    letterSpacing: '0.02em',
-                    background: 'rgba(15, 23, 42, 0.72)',
-                    padding: '0.45rem 0.85rem',
+                    letterSpacing: '0.01em',
+                    background: 'rgba(15, 23, 42, 0.82)',
+                    padding: '0.38rem 0.65rem',
                     border: '1px solid rgba(255, 255, 255, 0.22)',
                     borderRadius: '999px',
                     backdropFilter: 'blur(16px)',
                     WebkitBackdropFilter: 'blur(16px)',
-                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
+                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+                    maxWidth: 'calc(100vw - 2rem)',
                 }}
             >
                 <span
                     style={{
-                        fontSize: '0.62rem',
+                        fontSize: '0.6rem',
                         fontWeight: 800,
-                        background: 'rgba(59, 130, 246, 0.35)',
-                        color: '#93c5fd',
-                        padding: '2px 6px',
+                        background: badgeColor.bg,
+                        color: badgeColor.text,
+                        padding: '2px 7px',
                         borderRadius: '999px',
-                        border: '1px solid rgba(147, 197, 253, 0.3)',
+                        border: `1px solid ${badgeColor.border}`,
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
                     }}
                 >
-                    {currentVideo.era}
+                    {currentVideo.era} ({videoIndex + 1}/{HISTORICAL_VIDEOS.length})
                 </span>
-                <span>{currentVideo.name}</span>
-                <span style={{ opacity: 0.75, fontSize: '0.7rem' }}>⏭ 映像切替</span>
-            </button>
+
+                {/* Direct Dropdown Selector for all 18 verified eras/videos */}
+                <select
+                    aria-label="背景の時代映像を選択"
+                    value={videoIndex}
+                    onChange={(e) => setVideoIndex(Number(e.target.value))}
+                    style={{
+                        background: 'transparent',
+                        color: '#f8fafc',
+                        border: 'none',
+                        fontSize: '0.72rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        outline: 'none',
+                        maxWidth: '280px',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                    }}
+                >
+                    {HISTORICAL_VIDEOS.map((vid, idx) => (
+                        <option
+                            key={vid.id}
+                            value={idx}
+                            style={{ background: '#0f172a', color: '#f8fafc' }}
+                        >
+                            [{vid.era}] {vid.name}
+                        </option>
+                    ))}
+                </select>
+
+                <button
+                    onClick={handlePrevEra}
+                    title="前の時代映像へ"
+                    style={{
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        color: '#f8fafc',
+                        border: '1px solid rgba(255, 255, 255, 0.18)',
+                        borderRadius: '999px',
+                        padding: '2px 7px',
+                        fontSize: '0.66rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        flexShrink: 0,
+                    }}
+                >
+                    ⏮
+                </button>
+                <button
+                    onClick={handleNextEra}
+                    title="次の時代映像へ切替"
+                    style={{
+                        background: 'rgba(59, 130, 246, 0.28)',
+                        color: '#dbeafe',
+                        border: '1px solid rgba(147, 197, 253, 0.35)',
+                        borderRadius: '999px',
+                        padding: '2px 8px',
+                        fontSize: '0.66rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
+                    }}
+                >
+                    ⏭ 次へ
+                </button>
+
+                <a
+                    href={`https://www.youtube.com/watch?v=${currentVideo.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={`映像出典: ${currentVideo.sourceChannel} (YouTubeで開く)`}
+                    style={{
+                        color: '#94a3b8',
+                        fontSize: '0.62rem',
+                        textDecoration: 'none',
+                        paddingLeft: '2px',
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
+                    }}
+                >
+                    📺 出典
+                </a>
+            </div>
         </>
     );
 }

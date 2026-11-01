@@ -7,10 +7,11 @@ import WidgetFooter from './WidgetFooter';
 
 const domesticData = [
     { year: '2020', wage: 100.0, cpi: 100.0 },
-    { year: '2021', wage: 100.1, cpi: 99.8 },
-    { year: '2022', wage: 101.9, cpi: 102.3 },
-    { year: '2023', wage: 103.1, cpi: 105.6 },
-    { year: '2024(推)', wage: 105.2, cpi: 108.5 },
+    { year: '2021', wage: 100.3, cpi: 99.8 },
+    { year: '2022', wage: 102.0, cpi: 102.8 },
+    { year: '2023', wage: 103.2, cpi: 106.7 },
+    { year: '2024', wage: 106.0, cpi: 109.9 },
+    { year: '2025', wage: 108.4, cpi: 113.1 },
 ];
 
 const globalData = [
@@ -100,7 +101,7 @@ export default function RealWageWidget() {
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" vertical={false} />
                                     <XAxis dataKey="year" stroke="var(--text-tertiary)" fontSize={10} tickLine={false} axisLine={false} />
-                                    <YAxis domain={[95, 110]} stroke="var(--text-tertiary)" fontSize={10} tickLine={false} axisLine={false} />
+                                    <YAxis domain={[95, 115]} stroke="var(--text-tertiary)" fontSize={10} tickLine={false} axisLine={false} />
                                     <Tooltip
                                         contentStyle={{ backgroundColor: 'rgba(255,255,255,0.96)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '8px', color: 'var(--text-primary)' }}
                                         formatter={(value: any, name: any) => [Number(value).toFixed(1), name === 'cpi' ? '消費者物価指数' : '名目賃金指数']}

@@ -46,6 +46,7 @@ const domesticData = [
     { year: '2015', budget: 4.2, pisaRank: 7 },
     { year: '2020', budget: 4.8, pisaRank: 6 },
     { year: '2023', budget: 5.5, pisaRank: 5 },
+    { year: '2025', budget: 6.4, pisaRank: 5 },
 ];
 
 const ScatterTooltip = ({ active, payload }: any) => {

@@ -90,17 +90,27 @@ export default function PersonalDebtCounter() {
                 </p>
             </div>
 
-            <div style={{ marginTop: '0.75rem', paddingTop: '0.55rem', borderTop: '1px solid rgba(255,255,255,0.2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.7rem', color: '#fecaca' }}>
-                <span>📚 出典: 財務省・総務省人口推計</span>
+            <div style={{ marginTop: '0.75rem', paddingTop: '0.55rem', borderTop: '1px solid rgba(255,255,255,0.2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.4rem', fontSize: '0.7rem', color: '#fecaca' }}>
+                <span style={{ background: 'rgba(0,0,0,0.22)', padding: '2px 7px', borderRadius: '6px' }}>
+                    📚 出典:{' '}
+                    <a
+                        href="https://www.mof.go.jp/jgbs/reference/gbb/index.htm"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: '#ffffff', textDecoration: 'underline', fontWeight: 600 }}
+                    >
+                        財務省「国債及び借入金現在高」・総務省「人口推計」
+                    </a>
+                </span>
                 <a
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                         `【1人あたり借金1,090万円突破】国の借金1,346.7兆円を人口で割ると、国民1人あたり約1,090万円（現役世代1人あたり約1,822万円）に到達。#ミライノゼイ https://mirainozei.netlify.app`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: '#ffffff', fontWeight: 700, textDecoration: 'underline' }}
+                    style={{ color: '#ffffff', fontWeight: 700, textDecoration: 'none', background: 'rgba(0,0,0,0.25)', padding: '3px 9px', borderRadius: '999px', border: '1px solid rgba(255,255,255,0.25)' }}
                 >
-                    Xでシェア
+                    この現実をシェア
                 </a>
             </div>
         </div>
