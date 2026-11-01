@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import VideoBackground from '../components/VideoBackground';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://mirainozei.netlify.app'),
@@ -123,8 +124,11 @@ export default function RootLayout({
                                 JAPAN STRUCTURAL DATA ARCHIVE
                             </span>
                         </div>
-                        <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-                            公的統計・世代会計に基づく構造可視化
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                            <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+                                公的統計・世代会計に基づく構造可視化
+                            </span>
+                            <LanguageSwitcher />
                         </div>
                     </div>
                 </header>
