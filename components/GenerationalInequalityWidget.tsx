@@ -39,7 +39,7 @@ export default function GenerationalInequalityWidget() {
 
     return (
         <div className="widget" style={{ height: '100%', minHeight: '400px', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem', gap: '0.5rem' }}>
+            <div className="widget-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem', gap: '0.5rem' }}>
                 <div>
                     <h2 className="widget-title" style={{ marginBottom: '0.15rem' }}>
                         <span style={{ color: 'var(--accent-orange)' }}>⚖️</span> 受益と負担の「世代間格差」

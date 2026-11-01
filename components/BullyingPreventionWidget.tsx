@@ -98,7 +98,7 @@ export default function BullyingPreventionWidget() {
             onTouchStart={() => setIsPaused(true)}
         >
             {/* Header & Toggle */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <div className="widget-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem', gap: '0.5rem', flexWrap: 'wrap' }}>
                 <motion.div
                     key={view}
                     initial={{ opacity: 0, y: -6 }}

@@ -52,6 +52,7 @@ export default function DebtClock() {
                     </div>
 
                     <div
+                        className="debt-clock-panel"
                         style={{
                             background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.92))',
                             padding: '1.5rem 1.75rem',
@@ -59,6 +60,7 @@ export default function DebtClock() {
                             border: '1px solid rgba(255, 255, 255, 0.15)',
                             boxShadow: 'inset 0 2px 14px rgba(0, 0, 0, 0.5), 0 14px 32px rgba(15, 23, 42, 0.16)',
                             marginBottom: '1.25rem',
+                            overflow: 'hidden',
                         }}
                     >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.4rem' }}>
@@ -69,17 +71,19 @@ export default function DebtClock() {
                                 内国債 1,211.7兆 / 借入金 40.5兆 / 政府短期証券 94.4兆
                             </span>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.45rem', flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)', fontWeight: 700, color: '#f87171' }}>¥</span>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.35rem', flexWrap: 'nowrap', maxWidth: '100%' }}>
+                            <span style={{ fontSize: 'clamp(1.1rem, 4.2vw, 2.2rem)', fontWeight: 700, color: '#f87171', flexShrink: 0 }}>¥</span>
                             <div
                                 className="tabular-nums outfit"
                                 style={{
-                                    fontSize: 'clamp(1.7rem, 3.5vw, 3.25rem)',
+                                    fontSize: 'clamp(1.2rem, 5.1vw, 3.25rem)',
                                     fontWeight: 900,
                                     color: '#ffffff',
                                     lineHeight: 1.05,
-                                    letterSpacing: '-0.02em',
+                                    letterSpacing: '-0.03em',
                                     textShadow: '0 2px 18px rgba(239, 68, 68, 0.4)',
+                                    minWidth: 0,
+                                    overflowWrap: 'anywhere',
                                 }}
                             >
                                 {formattedStr}

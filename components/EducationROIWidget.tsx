@@ -97,7 +97,7 @@ export default function EducationROIWidget() {
             onTouchStart={() => setIsPaused(true)}
         >
             {/* Header & Toggle */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem', gap: '0.5rem' }}>
+            <div className="widget-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem', gap: '0.5rem' }}>
                 <div>
                     <h3 style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.15rem', fontWeight: 600 }}>
                         🎓 {view === 'global' ? 'ばらまき vs 学力 (国際比較)' : '予算膨張 vs 学力順位 (国内推移)'}

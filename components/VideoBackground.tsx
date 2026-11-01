@@ -239,6 +239,7 @@ export default function VideoBackground() {
 
             {/* 4. Interactive Era Switcher Dock (bottom-left) */}
             <div
+                className="era-dock"
                 style={{
                     position: 'fixed',
                     bottom: '1rem',
@@ -258,7 +259,8 @@ export default function VideoBackground() {
                     backdropFilter: 'blur(16px)',
                     WebkitBackdropFilter: 'blur(16px)',
                     boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
-                    maxWidth: 'calc(100vw - 2rem)',
+                    maxWidth: 'calc(100vw - 1.2rem)',
+                    overflow: 'hidden',
                 }}
             >
                 <span
@@ -290,7 +292,9 @@ export default function VideoBackground() {
                         fontWeight: 600,
                         cursor: 'pointer',
                         outline: 'none',
-                        maxWidth: '280px',
+                        maxWidth: '240px',
+                        minWidth: '80px',
+                        flex: '1 1 auto',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',

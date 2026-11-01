@@ -41,7 +41,7 @@ export default function DemographicChart() {
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" vertical={false} />
                         <XAxis dataKey="year" stroke="var(--text-tertiary)" tick={{ fill: 'var(--text-secondary)', fontSize: 10 }} tickLine={false} axisLine={false} />
-                        <YAxis stroke="var(--text-tertiary)" tick={{ fill: 'var(--text-secondary)', fontSize: 10 }} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}万`} />
+                        <YAxis width={46} stroke="var(--text-tertiary)" tick={{ fill: 'var(--text-secondary)', fontSize: 10 }} tickLine={false} axisLine={false} tickFormatter={(value: number) => (value >= 10000 ? `${value / 10000}億` : `${value}万`)} />
                         <Tooltip
                             contentStyle={{ backgroundColor: 'rgba(255,255,255,0.96)', border: '1px solid var(--border-color)', borderRadius: '8px', boxShadow: 'var(--shadow-md)' }}
                             itemStyle={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: '0.8rem' }}

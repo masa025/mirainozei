@@ -118,7 +118,7 @@ export default function ExchangeRateWidget() {
                         border: '1px solid var(--border-color)',
                     }}
                 >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.35rem' }}>
                         <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                             🍔 ビッグマック購買力平価
                         </span>
@@ -130,12 +130,13 @@ export default function ExchangeRateWidget() {
                                 background: 'var(--accent-red)',
                                 padding: '2px 8px',
                                 borderRadius: '999px',
+                                whiteSpace: 'nowrap',
                             }}
                         >
                             実質 -{yenUndervaluationPct}% の円安水準
                         </span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.25rem', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                         <span>
                             購買力適正レート: <strong style={{ color: 'var(--text-primary)' }}>1ドル = {BIG_MAC_IMPLIED.toFixed(1)}円</strong>
                         </span>
@@ -166,11 +167,11 @@ export default function ExchangeRateWidget() {
                             { label: '🇺🇸 米国', val: AVG_WAGE_USD, yenVal: Math.round((AVG_WAGE_USD * rate) / 10000), color: 'var(--accent-blue)' },
                         ].map((item) => (
                             <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                <div style={{ width: '48px', fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-primary)' }}>{item.label}</div>
+                                <div style={{ width: '48px', fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-primary)', flexShrink: 0 }}>{item.label}</div>
                                 <div style={{ flex: 1, height: '9px', background: 'rgba(15, 23, 42, 0.08)', borderRadius: '999px', overflow: 'hidden' }}>
                                     <div style={{ width: `${(item.val / AVG_WAGE_USD) * 100}%`, height: '100%', background: item.color, borderRadius: '999px' }} />
                                 </div>
-                                <div className="tabular-nums" style={{ width: '92px', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-secondary)', textAlign: 'right' }}>
+                                <div className="tabular-nums" style={{ width: '106px', fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-secondary)', textAlign: 'right', whiteSpace: 'nowrap', flexShrink: 0 }}>
                                     ${(item.val / 1000).toFixed(1)}k <span style={{ color: 'var(--text-tertiary)', fontWeight: 500 }}>({item.yenVal}万)</span>
                                 </div>
                             </div>

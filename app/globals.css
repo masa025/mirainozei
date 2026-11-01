@@ -439,6 +439,102 @@ li {
     }
 }
 
+/* ===== Mobile layout fixes ===== */
+.header-brand-title {
+    white-space: nowrap;
+}
+
+.header-inner {
+    gap: 0.75rem;
+}
+
+@media (max-width: 860px) {
+    .header-tagline {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .header {
+        padding: 0.6rem 0;
+    }
+
+    .header-badge {
+        display: none;
+    }
+
+    .header-brand-title {
+        font-size: 1.15rem !important;
+    }
+
+    /* Widget title + toggle rows: let the toggle drop under the title instead of squeezing it */
+    .widget-header-row {
+        flex-wrap: wrap;
+    }
+
+    .widget-header-row > :first-child {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
+    .widget-header-row button {
+        white-space: nowrap;
+    }
+
+    .widget {
+        padding: 1.15rem;
+    }
+
+    .tracing-content {
+        padding: 1.15rem;
+    }
+
+    .debt-clock-panel {
+        padding: 1rem 1rem !important;
+    }
+
+    .editorial-section-header {
+        padding: 0.6rem 0.85rem;
+    }
+
+    /* Decision-maker pie: keep the stat badge from covering the pie */
+    .pie-wrap {
+        min-height: 300px !important;
+    }
+
+    .pie-chart-layer {
+        top: 78px !important;
+    }
+
+    /* Background era switcher becomes a compact pill on phones */
+    .era-dock {
+        left: 0.6rem !important;
+        right: 0.6rem !important;
+        bottom: 0.55rem !important;
+        padding: 0.3rem 0.5rem !important;
+        gap: 0.3rem !important;
+        max-width: calc(100vw - 1.2rem) !important;
+        justify-content: space-between;
+    }
+
+    .era-dock select {
+        max-width: 115px !important;
+        min-width: 60px !important;
+        font-size: 0.68rem !important;
+    }
+
+    /* Section jump nav sits above the era pill and stays centered */
+    .section-jump-nav {
+        bottom: 3.3rem !important;
+        max-width: calc(100vw - 1.2rem) !important;
+    }
+
+    .section-jump-nav button {
+        padding: 0.34rem 0.6rem !important;
+        font-size: 0.7rem !important;
+    }
+}
+
 /* Below-the-fold rendering optimization (defer-rendering-heavy-content) */
 .below-fold-card {
     content-visibility: auto;

@@ -358,16 +358,15 @@ export default function RegionalPopulationWidget() {
             >
                 <span
                     style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '4px',
+                        display: 'inline-block',
+                        lineHeight: 1.45,
                         background: 'rgba(255, 255, 255, 0.08)',
                         padding: '3px 9px',
                         borderRadius: '6px',
                         fontWeight: 500,
                     }}
                 >
-                    📚 出典:{' '}
+                    <span style={{ whiteSpace: 'nowrap' }}>📚 出典: </span>
                     <a
                         href="https://www.ipss.go.jp/pp-shicyoson/j/shicyoson23/t-page.asp"
                         target="_blank"

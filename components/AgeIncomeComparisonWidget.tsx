@@ -39,7 +39,7 @@ export default function AgeIncomeComparisonWidget() {
             onMouseLeave={() => setIsPaused(false)}
             onTouchStart={() => setIsPaused(true)}
         >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', gap: '0.5rem' }}>
+            <div className="widget-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', gap: '0.5rem' }}>
                 <h2 className="widget-title" style={{ marginBottom: 0 }}>
                     <span style={{ color: 'var(--accent-blue)' }}>📉</span> 世代別の収入格差・停滞
                 </h2>

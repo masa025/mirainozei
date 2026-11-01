@@ -47,6 +47,7 @@ export default function SectionJumpNav() {
         <AnimatePresence>
             {visible && (
                 <motion.nav
+                    className="section-jump-nav"
                     aria-label="セクション移動ナビゲーション"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}

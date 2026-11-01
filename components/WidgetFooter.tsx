@@ -37,17 +37,16 @@ export default function WidgetFooter({
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
                 <span
                     style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '3px',
+                        display: 'inline-block',
+                        lineHeight: 1.45,
                         background: 'rgba(15, 23, 42, 0.05)',
-                        padding: '2px 7px',
+                        padding: '3px 8px',
                         borderRadius: '6px',
                         color: 'var(--text-secondary)',
                         fontWeight: 500,
                     }}
                 >
-                    📚 出典:{' '}
+                    <span style={{ whiteSpace: 'nowrap' }}>📚 出典: </span>
                     {sourceUrl ? (
                         <a
                             href={sourceUrl}

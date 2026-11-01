@@ -41,7 +41,7 @@ export default function DisappearingCitiesWidget() {
             onTouchStart={() => setIsPaused(true)}
         >
             <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                <div className="widget-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0.4rem' }}>
                     <h2 className="widget-title" style={{ color: 'var(--text-primary)', margin: 0, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '1.05rem' }}>
                         <AlertTriangle size={18} color="var(--accent-red)" />
                         消滅可能性自治体 744（全自治体の43%）

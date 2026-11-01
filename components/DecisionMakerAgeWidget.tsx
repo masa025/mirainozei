@@ -63,7 +63,7 @@ export default function DecisionMakerAgeWidget() {
             onMouseLeave={() => setIsPaused(false)}
             onTouchStart={() => setIsPaused(true)}
         >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem', gap: '0.5rem' }}>
+            <div className="widget-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem', gap: '0.5rem' }}>
                 <div>
                     <h2 className="widget-title" style={{ marginBottom: '0.15rem', fontSize: '1.05rem' }}>
                         <span style={{ color: 'var(--accent-orange)' }}>👨‍🦳</span> 意思決定層の高齢化（社長・国会議員）
@@ -108,8 +108,9 @@ export default function DecisionMakerAgeWidget() {
                 </div>
             </div>
 
-            <div style={{ flex: 1, position: 'relative', minHeight: '230px' }}>
+            <div className="pie-wrap" style={{ flex: 1, position: 'relative', minHeight: '230px' }}>
                 <motion.div
+                    className="pie-chart-layer"
                     key={view}
                     initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}

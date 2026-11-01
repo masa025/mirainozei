@@ -86,8 +86,8 @@ export default function RootLayout({
             <body>
                 <VideoBackground />
                 <header className="header">
-                    <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                    <div className="container header-inner" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', minWidth: 0 }}>
                             <img
                                 src="/icon.svg"
                                 alt="ミライノゼイ アイコン"
@@ -96,20 +96,23 @@ export default function RootLayout({
                                 style={{
                                     borderRadius: '6px',
                                     boxShadow: '0 2px 8px rgba(15, 23, 42, 0.18)',
+                                    flexShrink: 0,
                                 }}
                             />
                             <span
-                                className="outfit"
+                                className="outfit header-brand-title"
                                 style={{
                                     fontSize: '1.35rem',
                                     fontWeight: 900,
                                     letterSpacing: '-0.04em',
                                     color: 'var(--text-primary)',
+                                    whiteSpace: 'nowrap',
                                 }}
                             >
                                 ミライノゼイ
                             </span>
                             <span
+                                className="header-badge"
                                 style={{
                                     fontSize: '0.72rem',
                                     color: 'var(--text-secondary)',
@@ -119,13 +122,14 @@ export default function RootLayout({
                                     background: 'rgba(15, 23, 42, 0.06)',
                                     border: '1px solid rgba(15, 23, 42, 0.08)',
                                     letterSpacing: '0.04em',
+                                    whiteSpace: 'nowrap',
                                 }}
                             >
                                 JAPAN STRUCTURAL DATA ARCHIVE
                             </span>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                            <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexShrink: 0 }}>
+                            <span className="header-tagline" style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600, whiteSpace: 'nowrap' }}>
                                 公的統計・世代会計に基づく構造可視化
                             </span>
                             <LanguageSwitcher />

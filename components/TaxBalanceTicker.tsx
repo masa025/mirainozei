@@ -63,12 +63,12 @@ export default function TaxBalanceTicker() {
                         </div>
                     </div>
 
-                    <div style={{ marginTop: '0.35rem', padding: '0.75rem 0.9rem', background: 'rgba(239, 68, 68, 0.06)', borderRadius: '10px', border: '1px solid rgba(239, 68, 68, 0.2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div>
+                    <div style={{ marginTop: '0.35rem', padding: '0.75rem 0.9rem', background: 'rgba(239, 68, 68, 0.06)', borderRadius: '10px', border: '1px solid rgba(239, 68, 68, 0.2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.45rem' }}>
+                        <div style={{ flex: '1 1 180px', minWidth: 0 }}>
                             <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-primary)' }}>閲覧中に生み出された財政赤字</div>
                             <div style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)' }}>過去最高の税収でも歳出膨張に追いつかず借金で補填</div>
                         </div>
-                        <span className="tabular-nums outfit" style={{ color: 'var(--accent-red)', fontSize: '1.25rem', fontWeight: 900 }}>
+                        <span className="tabular-nums outfit" style={{ color: 'var(--accent-red)', fontSize: '1.25rem', fontWeight: 900, whiteSpace: 'nowrap' }}>
                             -¥{new Intl.NumberFormat('ja-JP').format(deficit)}
                         </span>
                     </div>
