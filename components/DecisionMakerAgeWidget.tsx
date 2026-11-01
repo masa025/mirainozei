@@ -133,9 +133,12 @@ export default function DecisionMakerAgeWidget() {
                 </AnimateChange>
 
                 {/* Center / Highlight stat overlay */}
-                <div style={{ position: 'absolute', top: '10px', left: '10px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', padding: '0.5rem', borderRadius: '8px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--accent-red)', fontWeight: 600 }}>60歳以上の割合</span>
-                    <span style={{ fontSize: '1.5rem', color: 'var(--accent-red)', fontWeight: 800, lineHeight: 1 }}>{over60Percent.toFixed(1)}%</span>
+                <div style={{ position: 'absolute', top: '8px', left: '8px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.25)', padding: '0.45rem 0.65rem', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <span style={{ fontSize: '0.68rem', color: 'var(--accent-red)', fontWeight: 700 }}>60歳以上の割合</span>
+                    <span className="tabular-nums" style={{ fontSize: '1.35rem', color: 'var(--accent-red)', fontWeight: 900, lineHeight: 1.1 }}>{over60Percent.toFixed(1)}%</span>
+                    <span style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', fontWeight: 600, marginTop: '2px' }}>
+                        {view === 'ceo' ? '社長平均: 63.81歳(過去最高)' : '休廃業社長平均: 74.98歳'}
+                    </span>
                 </div>
             </div>
         </div>

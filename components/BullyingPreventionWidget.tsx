@@ -18,7 +18,7 @@ const metricsData = [
     { year: '2021', budget: 75, totalCases: 61.5, serious: 705, truancy: 24.5, resolutionRate: 80.1 },
     { year: '2022', budget: 80, totalCases: 68.2, serious: 919, truancy: 29.9, resolutionRate: 78.0 },
     { year: '2023', budget: 85, totalCases: 73.3, serious: 1306, truancy: 34.6, resolutionRate: 77.5 },
-    { year: '2024(推)', budget: 88, totalCases: 75.0, serious: 1405, truancy: 36.2, resolutionRate: 77.0 },
+    { year: '2024(確定)', budget: 88, totalCases: 76.9, serious: 1405, truancy: 35.4, resolutionRate: 77.0 },
 ];
 
 // Custom Tooltip for View A (Budget vs Total Cases & Truancy)
@@ -308,14 +308,14 @@ export default function BullyingPreventionWidget() {
             {/* Conclusion / Insight Footer */}
             <div style={{ marginTop: '0.65rem', padding: '0.55rem 0.75rem', background: 'rgba(245, 158, 11, 0.06)', borderRadius: '8px', borderLeft: '4px solid #f59e0b' }}>
                 <p style={{ margin: 0, fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
-                    <strong style={{ color: '#d97706' }}>「予算消化」と「見かけの解消率8割」の陰で、重大事態1,306件・不登校34.6万人と過去最悪を更新。</strong>加害者隔離や現場権限なき予算投入の限界を示しています。
+                    <strong style={{ color: '#d97706' }}>令和6年度最新調査：認知76.9万件・重大事態1,405件・不登校35.4万人と全て過去最悪を更新。</strong>表面的な「解消率8割」やハコモノ予算の限界が露呈しています。
                 </p>
             </div>
 
             <WidgetFooter
-                sourceName="文部科学省「問題行動・不登校調査」/ 関連予算"
+                sourceName="文部科学省「問題行動・不登校調査」(令和6年度最新確定値)"
                 sourceUrl="https://www.mext.go.jp/a_menu/shotou/seitoshidou/1302902.htm"
-                shareText="【教育予算の現実】いじめ対策予算を増やし「解消率77%」と報告される裏で、命に関わる「重大事態」は1,306件、不登校は34.6万人と過去最悪を更新中。"
+                shareText="【文科省最新調査】いじめ対策予算を増やし続けた結果、認知件数は76.9万件、命に関わる「重大事態」は1,405件、不登校は35.4万人とすべて過去最多を更新。"
                 isPaused={isPaused}
             />
         </div>

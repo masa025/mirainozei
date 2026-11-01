@@ -190,7 +190,7 @@ export default function RegionalPopulationWidget() {
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', fontSize: '1.25rem', color: '#f8fafc', fontWeight: 800, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
                         <MapPin size={22} strokeWidth={2.5} style={{ color: isDeclining ? '#fca5a5' : '#93c5fd' }} />
-                        <span>{regionData.name} のリアルタイム人口推計</span>
+                        <span>{regionData.name} の人口推計（現在〜2050年）</span>
                         <select
                             aria-label="都道府県を切り替え"
                             value={regionData.key}
