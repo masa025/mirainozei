@@ -8,22 +8,37 @@ export const metadata: Metadata = {
         default: 'ミライノゼイ | 日本の財政・人口・構造課題データ',
         template: '%s | ミライノゼイ',
     },
-    description: '日本の「今」を数字で直視するデータダッシュボード。公的債務、実質負担率、世代間格差、人口動態、インフラ老朽化の現状を公的統計に基づき可視化します。',
-    keywords: ['日本', '税金', '公的債務', '人口減少', '少子高齢化', 'シルバー民主主義', 'インフラ老朽化', '世代間格差', 'ダッシュボード'],
+    description:
+        '日本の「今」と「未来」を数字で直視するデータダッシュボード。公的債務1,317兆円、国民負担率45.8%、出生数68.6万人、世代間格差、インフラ老朽化の現状を最新公的統計に基づき可視化します。',
+    keywords: [
+        '日本',
+        '税金',
+        '公的債務',
+        '国民負担率',
+        '人口減少',
+        '少子高齢化',
+        'シルバー民主主義',
+        'インフラ老朽化',
+        '世代間格差',
+        'ダッシュボード',
+        'ミライノゼイ',
+    ],
     authors: [{ name: 'Mirainozei Project' }],
     creator: 'Mirainozei Project',
     publisher: 'Mirainozei Project',
     openGraph: {
-        title: 'ミライノゼイ | 日本の財政・人口・構造課題データ',
-        description: '日本の「今」を数字で直視するデータダッシュボード。公的債務、世代間格差、人口動態、インフラの現状を可視化。',
+        title: 'ミライノゼイ | 日本の財政・人口・構造課題データ（全27指標）',
+        description:
+            '増え続ける国の借金（1,317兆円超）、高止まりする国民負担率（45.8%）、15年前倒しで進む少子化（68.6万人）、広がる世代間格差。最新公的統計で日本の現在地を解剖するダッシュボード。',
         url: 'https://mirainozei.netlify.app',
         siteName: 'ミライノゼイ',
         images: [
             {
-                url: '/og-image.png',
+                url: '/og-image.png?v=2',
                 width: 1200,
                 height: 630,
-                alt: 'ミライノゼイ ダッシュボードのプレビュー画像',
+                type: 'image/png',
+                alt: 'ミライノゼイ — 日本の「今」と「未来」を数字で直視するダッシュボード',
             },
         ],
         locale: 'ja_JP',
@@ -31,9 +46,10 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'ミライノゼイ | 日本の現在地',
-        description: '増え続ける国の借金、減り続ける人口、広がる世代間格差。日本の現実を直視するためのデータ・ダッシュボード。',
-        images: ['/og-image.png'],
+        title: 'ミライノゼイ | 日本の「今」と「未来」を数字で直視するダッシュボード',
+        description:
+            '増え続ける国の借金、減り続ける人口、静かに進行する「日本の構造危機」の全貌を27の最新公的統計と時代映像で可視化。',
+        images: ['/og-image.png?v=2'],
     },
     robots: {
         index: true,
@@ -47,8 +63,15 @@ export const metadata: Metadata = {
         },
     },
     icons: {
-        icon: '/favicon.ico',
-        apple: '/apple-icon.png',
+        icon: [
+            { url: '/favicon.ico', sizes: 'any' },
+            { url: '/icon.svg', type: 'image/svg+xml' },
+            { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+            { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+            { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+        ],
+        shortcut: ['/favicon.ico'],
+        apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
     },
 };
 
@@ -64,14 +87,14 @@ export default function RootLayout({
                 <header className="header">
                     <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                            <span
+                            <img
+                                src="/icon.svg"
+                                alt="ミライノゼイ アイコン"
+                                width={26}
+                                height={26}
                                 style={{
-                                    display: 'inline-block',
-                                    width: '11px',
-                                    height: '11px',
-                                    borderRadius: '50%',
-                                    background: 'linear-gradient(135deg, #2563eb, #ef4444)',
-                                    boxShadow: '0 0 12px rgba(37, 99, 235, 0.5)',
+                                    borderRadius: '6px',
+                                    boxShadow: '0 2px 8px rgba(15, 23, 42, 0.18)',
                                 }}
                             />
                             <span

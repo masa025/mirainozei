@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <radialGradient id="glowRed" cx="75%" cy="20%" r="55%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.42" />
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glowBlue" cx="20%" cy="80%" r="55%">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.48" />
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect x="12" y="12" width="488" height="488" rx="112" fill="#090d16" />
+  <rect x="12" y="12" width="488" height="488" rx="112" fill="url(#glowRed)" />
+  <rect x="12" y="12" width="488" height="488" rx="112" fill="url(#glowBlue)" />
+  <rect x="12" y="12" width="488" height="488" rx="112" stroke="#93c5fd" stroke-opacity="0.65" stroke-width="14" />
+  <rect x="84" y="256" width="90" height="172" rx="26" fill="#3b82f6" />
+  <rect x="211" y="184" width="90" height="244" rx="26" fill="#f59e0b" />
+  <rect x="338" y="108" width="90" height="320" rx="26" fill="#ef4444" />
+  <polyline points="84,206 200,122 262,164 384,74" stroke="#ffffff" stroke-width="38" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="383" cy="77" r="36" fill="#ef4444" stroke="#ffffff" stroke-width="14" />
+</svg>
